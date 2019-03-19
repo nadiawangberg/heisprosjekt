@@ -1,7 +1,6 @@
 #include "elev.h"
 #include <stdio.h>
 
-
 /**
 * @file
 * @brief The main file, it does what
