@@ -1,7 +1,7 @@
 #include "elev.h"
 #include <stdio.h>
 
-
+#test lol
 int main() {
     // Initialize hardware
     if (!elev_init()) {
