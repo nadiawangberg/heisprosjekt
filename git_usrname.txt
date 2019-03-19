@@ -1,0 +1,4 @@
+git config --global user.name "nadiawangberg"
+git config --global user.email "nadiagw@stud.ntnu.no"
+git config --global user.name "ludvigls"
+

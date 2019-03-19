@@ -10,7 +10,7 @@
 
 #include <comedilib.h>
 
-
+//#define bit(i) i<<1
 static comedi_t *it_g = NULL;
 
 

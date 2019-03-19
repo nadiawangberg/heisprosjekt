@@ -2,6 +2,12 @@
 #include <stdio.h>
 
 
+/**
+* @file
+* @brief The main file, it does what
+* main files usually does
+*/
+
 int main() {
     // Initialize hardware
     if (!elev_init()) {
