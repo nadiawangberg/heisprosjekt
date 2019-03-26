@@ -1,18 +1,18 @@
 
 
-enum floor {
-	undefined = -1,
-	first = 1,
-	second,
-	third,
-	fourth 
+enum Floor {
+	UNDEFINED = -1,
+	FIRST = 0,
+	SECOND,
+	THIRD,
+	FOURTH 
 };
-
+Floor floor=UNDEFINED;
 
 /**
   O1, O2, O3
 */
-void liftInit();
+void positionInit();
 
 
 /**
