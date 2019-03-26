@@ -13,8 +13,6 @@ enum State {
 void StateMachine() {
 	while(1) {
 		// gjør generelle ting unless visse krav
-
-
 		switch(state) {
 			case IDLE:
 				// noe
@@ -28,7 +26,6 @@ void StateMachine() {
 			case STOP:
 				// noe
 				break;
-
 		}
 	}
 }

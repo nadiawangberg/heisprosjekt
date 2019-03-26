@@ -32,7 +32,7 @@ int main() {
         elev_set_floor_indicator(2);
         elev_set_button_lamp(BUTTON_CALL_DOWN, 1, 1);
 
-
+        
 
 
 
