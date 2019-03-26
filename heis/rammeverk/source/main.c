@@ -47,6 +47,6 @@ int main() {
     //elev_set_motor_direction(DIRN_UP);
 
     positionInit();
-    printf("\n%i\n",my_floor);
+    printf("\n%i\n",current_floor);
     return 0;
 }
