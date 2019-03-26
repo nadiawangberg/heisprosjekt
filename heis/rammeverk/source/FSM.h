@@ -1,13 +1,13 @@
+#include "door.h"
 
 
-
-enum State {
+typedef enum tag_state {
 	INIT = 0,
 	IDLE,
 	RUNNING,
 	DOOR_OPEN,
 	STOP 
-};
+} State;
 
 
 void StateMachine() {
@@ -18,10 +18,12 @@ void StateMachine() {
 				// noe
 				break;
 			case RUNNING:
+				printf("In running state, nothing here atm");
 				// noe
 				break;
 			case DOOR_OPEN:
-				// noe
+				printf("In door open state, will run door open func\n");
+				DoorOpen();
 				break;
 			case STOP:
 				// noe
