@@ -1,5 +1,5 @@
 #include "elev.h"
-#include "FSM.h"
+#include "FSM.c"
 #include <stdio.h>
 #include <time.h>
 
@@ -9,12 +9,13 @@
 * main files usually does
 */
 
-State_t state = INIT; // Global state variable
+State state = INIT; // Global state variable
 
 
 // Global time
-int msec = 0, trigger = 10; /* 10ms */
-clock_t before = clock();
+//clock_t start_t, end_t, total_t;
+//start_t = clock();
+
 
 int main() {
     // Initialize hardware
@@ -25,17 +26,12 @@ int main() {
 
     printf("Press STOP button to stop elevator and exit program.\n");
 
-
     // TEST FOR DOOR + FSM
     elev_set_motor_direction(DIRN_UP); // kjører opp
     state = RUNNING;
 
-    if (elev_get_floor_sensor_signal() == 2) {
-        state = DOOR_OPEN;
-        // start timer
-    }
-
-    StateMachine();
+    // Code is STUCK in this func atm
+    StateMachine(state);
 
     /*
     while (1) {
