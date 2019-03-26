@@ -1,4 +1,5 @@
 #include "elev.h"
+#include "liftMovement.c"
 #include <stdio.h>
 
 /**
@@ -13,7 +14,7 @@ int main() {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
-
+    /*
     printf("Press STOP button to stop elevator and exit program.\n");
 
     elev_set_motor_direction(DIRN_UP);
@@ -32,6 +33,10 @@ int main() {
             break;
         }
     }
+    */
+    //elev_set_motor_direction(DIRN_UP);
 
+    positionInit();
+    printf("\n%i\n",my_floor);
     return 0;
 }
