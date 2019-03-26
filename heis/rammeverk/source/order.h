@@ -1,11 +1,12 @@
 #include "liftMovement.h"
-typedef Struct tag_order {
+"""typedef Struct tag_order {
 	elev_motor_direction_t dir;
 	int priority;
-} Order;
-Order order_priority[6];
-void addOrder(Floor floor);
+} Order;"""
+int order_priority[4][2]={{0,0},{0,0},{0,0},{0,0}};
+void addOrder(Floor floor,elev_motor_direction_t dir);
 void removeOrder(Floor floor);
 bool takeBonusOrder();
 bool takeOrder();
 void checkForOrderAndAddOrderToList();
+void printOrders();
