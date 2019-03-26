@@ -10,7 +10,7 @@ enum floor {
 
 
 /**
-  O1, O2, O3
+  O1, O2, O3 
 */
 void liftInit();
 
