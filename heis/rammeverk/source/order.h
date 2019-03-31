@@ -4,7 +4,6 @@
 typedef Struct tag_order {
 	elev_motor_direction_t dir;
 	int priority;
-<<<<<<< HEAD
 } Order;
 */
 
@@ -20,14 +19,16 @@ elev_motor_direction_t DIRECTION;
 
 
 void addOrder(Floor floor, elev_motor_direction_t dir); // dir = order_direction
-void removeOrder(Floor floor); //removes a single order
+void removeOrders(Floor floor);
  //removes all orders in the right direction in the current floor
 void checkForOrders(); 
 void printOrders();
 
 //vent med
-bool takeOrder(); // maskineri, bevegelse osv, burde dette være i denne modulen??
+bool selectDir(); //
 
+
+void orderManager();
 
 
 //idea #3: why not drop priority, it sucks either way.  
@@ -36,16 +37,4 @@ bool takeOrder(); // maskineri, bevegelse osv, burde dette være i denne modulen
 When we check to stop we just check the ligths lmao. 
 The number of lights that are on are the amount of orders that.
 */
-=======
-} Order;"""
-//int order_priority_in[4][2]={{0,0},{0,0},{0,0},{0,0}};
-//int order_priority_out[4][2]={{0,0},{0,0},{0,0},{0,0}};
-int order_priority_in[4]={0,0,0,0}
-int order_priority_out[6]={0,0,0,0,0,0}
-void addOrder(Floor floor,elev_motor_direction_t dir);
-void removeOrder(Floor floor);
-bool takeBonusOrder();
-bool takeOrder();
-void checkForOrderAndAddOrderToList();
-void printOrders();
->>>>>>> orderModule
+

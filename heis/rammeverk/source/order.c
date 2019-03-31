@@ -46,7 +46,7 @@ void addOrder(Floor floor, elev_motor_direction_t dir){
 //hjelpe funksjon
 	
 // called in each floor, no matter what (prob 2 times for 1. and 4. floor)
-bool removeOrder(){ //obv NOT done
+bool removeOrders(){ //obv NOT done
 	if(DIRECTION==DIRN_UP){
 		if(order_priority_up[floor]==0)
 			order_priority_up[floor]=0;
@@ -75,4 +75,38 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 }
 void (){
 
+}
+
+
+
+int selectDir() {
+	// looks at order lists
+	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
+	// return direction;
+
+}
+
+// run EVERY time in FSM
+// can change state of system, and change direction
+void orderManager() {
+	/*
+	if (state == stop state)
+		delete everything in list
+		fuck with lights?
+		osv
+		return;
+
+	checkForOrders() // this also adds new orders to the list
+
+	dir = selectDir() // This changes direction of lift movement
+	
+
+	// state transistions can be done from main while(1) instead
+	if dir != stop / chillern: // can change names, remember consistensy!
+		state = running
+	else: 
+		state = idle
+
+
+	*/
 }
