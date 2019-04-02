@@ -1,3 +1,5 @@
+#ifndef __INCLUDE_DRIVER_H__
+#define __INCLUDE_DRIVER_H__
 
 
 typedef enum tag_state {
@@ -43,3 +45,4 @@ void StateMachine() {
 		}
 	}
 }
+#endif 

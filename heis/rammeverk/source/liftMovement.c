@@ -16,10 +16,10 @@ void positionInit(){
 }
 
 
-void up(){
+/*void up(){
 
 }
 
 void down(){
 
-}
+}*/

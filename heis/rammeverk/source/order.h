@@ -1,4 +1,6 @@
 #include "liftMovement.h"
+#ifndef __INCLUDE_ORDER_H__
+#define __INCLUDE_ORDER_H__
 
 /*
 typedef Struct tag_order {
@@ -38,3 +40,4 @@ When we check to stop we just check the ligths lmao.
 The number of lights that are on are the amount of orders that.
 */
 
+#endif

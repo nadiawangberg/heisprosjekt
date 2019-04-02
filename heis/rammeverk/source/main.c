@@ -1,5 +1,6 @@
 #include "elev.h"
 #include "liftMovement.c"
+#include "order.c"
 #include <stdio.h>
 
 /**
