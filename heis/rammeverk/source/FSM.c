@@ -1,6 +1,6 @@
-#include "door.h"
+#include "FSM.h"
 
-
+/*
 typedef enum tag_state {
 	INIT = 0,
 	IDLE,
@@ -8,37 +8,72 @@ typedef enum tag_state {
 	DOOR_OPEN,
 	STOP 
 } State;
+*/
 
+void PrintState(State state) {
 
-void StateMachine(State state) {
-	int open = 0;
+	switch(state) {
+		case INIT:
+			printf("Init state");
+			break;
+		case IDLE:
+			printf("Idle state");
+			break;
+		case RUNNING:
+			printf("Running state");
+			break;
+		case DOOR_OPEN:
+			printf("DoorOpen state");
+			break;
+		case STOP:
+			printf("EmergencyStop state");		
+			break;
+		return;
+	}
+}
+
+void StateMachineInit() {
+    elev_set_motor_direction(DIRN_UP); // kjører opp
+    curr_state = RUNNING;
+
+}
+
+void StateMachine() {
+
+	StateMachineInit();
+
 	while(1) {
-		printf("State: %d\n", state);
-		// TEST
-    	if (elev_get_floor_sensor_signal() == 2) {
-        	state = DOOR_OPEN;
-        	// start timer
-    		}
+		// PrintState(state);
 
 		// gjør generelle ting unless visse krav
-		switch(state) {
+		switch(curr_state) {
 			case INIT:
-				printf("In INIT state, nothing here atm\n");
+				//printf("In INIT state, nothing here atm\n");
 				//noe
 				break;
 			case IDLE:
 				// noe
 				break;
 			case RUNNING:
-				// just for debugging xDD
-				printf("IN RUNNING STATE");
-				elev_set_stop_lamp(1);
+				if (elev_get_floor_sensor_signal() == 2) { // third floor
+        			curr_state = DOOR_OPEN;
+        			break;
+    			}
+
+				elev_set_motor_direction(DIRN_UP);
+				elev_set_stop_lamp(1); // for debugging
 				break;
 			case DOOR_OPEN:
-				open = DoorOpen();
-				if (open == 1) {
-					state = RUNNING;
+				if (prev_state != curr_state) {
+					DoorInit();
+					prev_state = DOOR_OPEN;
 				}
+
+				if (TimerDone()) {
+					curr_state = RUNNING;
+					ResetTimer();
+				}
+				// PrintState(curr_state);
 				break;
 			case STOP:
 				// noe

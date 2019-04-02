@@ -1,5 +1,5 @@
 #include "elev.h"
-#include "FSM.c"
+#include "FSM.h"
 #include <stdio.h>
 #include <time.h>
 
@@ -8,9 +8,6 @@
 * @brief The main file, it does what
 * main files usually does
 */
-
-State state = INIT; // Global state variable
-
 
 // Global time
 //clock_t start_t, end_t, total_t;
@@ -25,10 +22,6 @@ int main() {
     }
 
     printf("Press STOP button to stop elevator and exit program.\n");
-
-    // TEST FOR DOOR + FSM
-    elev_set_motor_direction(DIRN_UP); // kjører opp
-    state = RUNNING;
 
     // Code is STUCK in this func atm
     StateMachine(state);

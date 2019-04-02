@@ -1,14 +1,23 @@
-#include "elev.h"
-#include <stdio.h>
-#include <unistd.h>
 
-int DoorOpen() {
-	//printf("In door open func, lights, motor off \n");
-	elev_set_motor_direction(DIRN_STOP);
-	elev_set_door_open_lamp(1);
-	// funk kalles så lenge vi er i state
 
-	sleep(3); // NEEDS TO BE REPLACED BY A TIMER THAT LOOPS THROUGH STATE MACHINE
 
-	return 1;
-}
+#ifndef __INCLUDE_DOOR_H__
+#define __INCLUDE_DOOR_H__
+
+#include <time.h>
+
+//clock_t before = clock();
+//clock_t difference = clock() - before;
+//clock_t before = 0; 
+//clock_t difference = 0;
+//int msec = 0;
+
+void DoorInit();
+
+void ResetTimer();
+
+void StartTimer();
+
+int TimerDone();
+
+#endif // #ifndef __INCLUDE_DRIVER_H__
