@@ -1,6 +1,5 @@
-#ifndef __INCLUDE_DRIVER_H__
-#define __INCLUDE_DRIVER_H__
-
+#ifndef __INCLUDE_LIFTMOVEMENT_H__
+#define __INCLUDE_LIFTMOVEMENT_H__
 
 typedef enum tag_floor {
 	UNDEFINED = -1,
@@ -10,8 +9,8 @@ typedef enum tag_floor {
 	FOURTH 
 } Floor;
 
-Floor current_floor = UNDEFINED;
-Floor last_floor = UNDEFINED;
+static Floor floor = UNDEFINED;
+//Floor last_floor = UNDEFINED;
 
 /**
   O1, O2, O3

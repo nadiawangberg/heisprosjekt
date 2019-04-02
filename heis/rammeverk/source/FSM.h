@@ -10,7 +10,7 @@ typedef enum tag_state {
 	STOP 
 } State;
 
-
+static State state= INIT;
 void StateMachine() {
 	while(1) {
 		// gjør generelle ting unless visse krav

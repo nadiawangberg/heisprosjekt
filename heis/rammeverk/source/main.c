@@ -1,7 +1,8 @@
 #include "elev.h"
-#include "liftMovement.c"
-#include "order.c"
+#include "liftMovement.h"
+#include "order.h"
 #include <stdio.h>
+
 
 /**
 * @file
@@ -17,6 +18,7 @@ int main() {
     }
     
     printf("Press STOP button to stop elevator and exit program.\n");
+   //positionInit();
 
     elev_set_motor_direction(DIRN_UP); // kjører opp
     DIRECTION=DIRN_UP;
@@ -49,8 +51,7 @@ int main() {
     */
     //elev_set_motor_direction(DIRN_UP);
 
-  //  positionInit();
  //printf("\n%i\n",current_floor);
    // return 0;
-}
+    }
 }
