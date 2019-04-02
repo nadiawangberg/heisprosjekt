@@ -12,6 +12,10 @@
 //clock_t difference = 0;
 //int msec = 0;
 
+
+int msec = 0, trigger = 3000; // 3 seconds??
+clock_t difference, before; 
+
 void DoorInit();
 
 void ResetTimer();

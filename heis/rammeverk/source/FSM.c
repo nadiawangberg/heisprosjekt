@@ -65,7 +65,7 @@ void StateMachine() {
 				break;
 			case DOOR_OPEN:
 				if (prev_state != curr_state) {
-					DoorInit();
+					DoorInit(); // timer started
 					prev_state = DOOR_OPEN;
 				}
 

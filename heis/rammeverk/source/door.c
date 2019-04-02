@@ -19,10 +19,12 @@ void ResetTimer() {
 }
 
 void StartTimer() {
-
+	before = clock();
 }
 
 int TimerDone() {
-	//return (msec > 3000);
-	return 1;
+	difference = clock() - before;
+  	msec = difference * 1000 / CLOCKS_PER_SEC;
+  	//printf("difference: %d \n", msec);
+  	return (msec >= trigger); // returns 0 or 1
 }
