@@ -19,7 +19,7 @@ int main() {
     
     printf("Press STOP button to stop elevator and exit program.\n");
    //positionInit();
-
+    printf("%i",selectDir(1,UP));
     elev_set_motor_direction(DIRN_STOP); // kjører opp
     //DIRECTION=DIRN_UP;
     while (1) {
@@ -37,8 +37,10 @@ int main() {
         elev_set_button_lamp(BUTTON_CALL_DOWN, 1, 1);
 */      
 
-        checkForOrders();
+      /*  checkForOrders();
         printOrders();
+        selectDir(1,UP);
+    */
        // removeAllOrders();
 
 /*

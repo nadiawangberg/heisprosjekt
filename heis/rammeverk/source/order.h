@@ -12,7 +12,7 @@ typedef Struct tag_order {
 
 typedef enum tag_elev_order_direction { 
     DOWN = -1,
-    COMMAND,
+    COMMAND, // inside lift
     UP
 } elev_order_direction_t;
 
@@ -21,11 +21,11 @@ typedef enum tag_elev_order_direction {
 //int order_priority_out[4][2]={{0,0},{0,0},{0,0},{0,0}};
 
 // Not global, member variables for order
-static int order_priority_up[4];
+static int order_priority_up[4]={0,0,1,0};//initalized as  zero vector
 static int order_priority_down[4];
 
 // probably global?
-static elev_motor_direction_t DIRECTION;
+static elev_motor_direction_t direction_g;
 /**
   Add a order.
   @param dir Which direction type to check. Can be DOWN, COMMAND or UP.

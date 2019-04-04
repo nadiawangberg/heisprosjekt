@@ -28,14 +28,18 @@ void addOrder(Floor floor, elev_order_direction_t dir){
 		order_priority_down[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 1);
 	}
-	else{ // aka dir == DIRN_STOP, aka person in lift pressed button (1-4)
+	else{ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
-		if(DIRECTION==UP){
+		/*if(direction_g!=DIRN_STOP)
+		{
+			if(direction_g==DIRN_UP){
 			order_priority_up[floor]=1;
+			}
+			else{ // Dir = down
+				order_priority_down[floor]=1;
+			}
 		}
-		else{ // Dir = down
-			order_priority_down[floor]=1;
-		}
+		*/
 	}
 }
 	
@@ -52,7 +56,7 @@ void removeOrders(){ //tested
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);}
 	}
 	/* 
-	if(DIRECTION==DIRN_UP){
+	if(direction_g==DIRN_UP){
 		if(order_priority_up[floor]==1)
 			order_priority_up[floor]=0;
 			elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
@@ -79,10 +83,10 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 		}
 	}
 }
-/*
 
-elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. 
-	// if (more orders in the current direction)
+
+elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
+	// if (more orders in the current direction) 
 	if(floor==FOURTH){
 		return DIRN_DOWN;
 	}
@@ -90,7 +94,7 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 		return DIRN_UP;
 	}
 	else if (current_direction==DIRN_UP){
-		for(int i=floor+1;i<=3,i+=1){
+		for(int i=floor+1;i<=3;i+=1){
 			if(order_priority_up[i]){
 				dir=DIRN_UP;
 			}
@@ -107,23 +111,23 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 				return DIRN_DOWN;
 			}
 		}
-		for(int i=floor+1;i<=3,i+=1){
+		for(int i=floor+1;i<=3;i+=1){
 			if(order_priority_up[i]){
 				return DIRN_UP;
 			}
 		}
 	}
 	else {return DIRN_STOP;}
-	}
-		DIRECTION doesnt change
+}
+		/*direction_g doesnt change
 		else if (orders in the other direction)
-			DIRECTION is other direction
+			direction_g is other direction
 		else  
-			direction = stop
+			direction = stop*/
 	
 
 
-*/
+
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;
@@ -146,14 +150,14 @@ void removeAllOrders(){
 
 // run EVERY time in FSM
 // can change state of system, and change direction
-/*
+
 void orderManager() {
 	
 	if (state == STOP){
 		removeAllOrders();
-		delete everything in list
+		/*delete everything in list
 		fuck with lights?
-		osv
+		osv*/
 		return;
 	}
 		
@@ -164,11 +168,10 @@ void orderManager() {
 	
 
 	// state transistions can be done from main while(1) instead
-	if (DIRECTION != STOP){ // can change names, remember consistensy!
+	if (direction_g != DIRN_STOP){ // can change names, remember consistensy!
 		state = RUNNING;
 	else{ 
 		state = IDLE;
 		}
 	}
 }
-*/
