@@ -93,17 +93,17 @@ void StateMachine() {
 				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:
-				if (prev_state != curr_state) {
+				if (prev_state != curr_state) { // just transitioned to door open
 					DoorStateInit(); // timer started
 				}
 
 				if (TimerDone()) {
-					printf("TIMER DONE!");
 					curr_state = RUNNING;
 					DoorStateExit();
-					transitionFromDoorOpen();
+					break;
 				}
 
+				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
 				break;
 			case STOP:
 				// noe
