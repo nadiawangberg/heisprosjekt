@@ -10,6 +10,8 @@ typedef enum tag_state {
 } State;
 */
 
+been_in_2nd_floor = 0;
+
 void PrintState(State state) {
 
 	switch(state) {
@@ -55,25 +57,29 @@ void StateMachine() {
 				// noe
 				break;
 			case RUNNING:
-				if (elev_get_floor_sensor_signal() == 2) { // third floor
+				if (elev_get_floor_sensor_signal() == 2 && !been_in_2nd_floor) { // third floor
         			curr_state = DOOR_OPEN;
+        			prev_state = RUNNING;
+        			been_in_2nd_floor = 1;
         			break;
     			}
 
 				elev_set_motor_direction(DIRN_UP);
-				elev_set_stop_lamp(1); // for debugging
+				elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
+				
+				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:
 				if (prev_state != curr_state) {
 					DoorInit(); // timer started
-					prev_state = DOOR_OPEN;
 				}
 
 				if (TimerDone()) {
 					curr_state = RUNNING;
 					ResetTimer();
 				}
-				// PrintState(curr_state);
+
+				prev_state = DOOR_OPEN;
 				break;
 			case STOP:
 				// noe
