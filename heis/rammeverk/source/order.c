@@ -43,17 +43,26 @@ void addOrder(Floor floor, elev_order_direction_t dir){
 //hjelpe funksjon
 	
 // called in each floor, no matter what (prob 2 times for 1. and 4. floor)
-void removeOrders(){ 
+void removeOrders(){
+	if(order_priority_up[floor]==1){
+		order_priority_up[floor]=0;
+		elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
+		if(order_priority_down[floor]==1){
+			order_priority_down[floor]=0;
+		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);}
+	}
+	/* 
 	if(DIRECTION==DIRN_UP){
-		if(order_priority_up[floor]==0)
+		if(order_priority_up[floor]==1)
 			order_priority_up[floor]=0;
 			elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
 	}
-	else if(order_priority_down[floor]==0){
+	else if(order_priority_down[floor]==1){
 		order_priority_down[floor]=0;
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);
 	} 
 	elev_set_button_lamp(BUTTON_COMMAND,floor, 0);
+	*/
 }
 
 
@@ -70,14 +79,20 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 		}
 	}
 }
+/*
 
-
-/*elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) {
+elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. 
 	// if (more orders in the current direction)
-	if (current_direction==DIRN_UP){
+	if(floor==FOURTH){
+		return DIRN_DOWN;
+	}
+	else if(floor==FIRST){
+		return DIRN_UP;
+	}
+	else if (current_direction==DIRN_UP){
 		for(int i=floor+1;i<=3,i+=1){
 			if(order_priority_up[i]){
-				return DIRN_UP;
+				dir=DIRN_UP;
 			}
 		}
 		for(int i=floor-1;i>=0;i-=1){
@@ -105,10 +120,10 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 			DIRECTION is other direction
 		else  
 			direction = stop
-	*/
+	
 
 
-
+*/
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;

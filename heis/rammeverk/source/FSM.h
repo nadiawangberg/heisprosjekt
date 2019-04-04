@@ -15,7 +15,7 @@ void StateMachine() {
 	while(1) {
 		// gjør generelle ting unless visse krav
 
-		// orderManager(); // changing state
+		orderManager(); // changing state
 
 		switch(state) {
 			case IDLE:
