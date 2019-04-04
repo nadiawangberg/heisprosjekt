@@ -20,8 +20,8 @@ int main() {
     printf("Press STOP button to stop elevator and exit program.\n");
    //positionInit();
 
-    elev_set_motor_direction(DIRN_UP); // kjører opp
-    DIRECTION=DIRN_UP;
+    elev_set_motor_direction(DIRN_STOP); // kjører opp
+    //DIRECTION=DIRN_UP;
     while (1) {
         // Change direction when we reach top/bottom floor
      /*   if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
@@ -39,6 +39,7 @@ int main() {
 
         checkForOrders();
         printOrders();
+       // removeAllOrders();
 
 /*
 

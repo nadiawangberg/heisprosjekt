@@ -3,7 +3,7 @@
 #include "order.h"
 #include "FSM.h"
 #include <stdio.h>
-void printOrders(){
+void printOrders(){ //tested
 	printf("order_priority_up: ");
 	for (int i=0;i<4;i+=1){
 			printf("%d ",order_priority_up[i]);
@@ -43,7 +43,7 @@ void addOrder(Floor floor, elev_order_direction_t dir){
 //hjelpe funksjon
 	
 // called in each floor, no matter what (prob 2 times for 1. and 4. floor)
-void removeOrders(){
+void removeOrders(){ //tested
 	if(order_priority_up[floor]==1){
 		order_priority_up[floor]=0;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
@@ -66,8 +66,8 @@ void removeOrders(){
 }
 
 
-void checkForOrders(){//feels if we have orders (button press), adds them to queue if there are orders
-	for(int i=0;i<3;i+=1){
+void checkForOrders(){//feels if we have orders (button press), adds them to queue if there are orders    //tested
+	for(int i=0;i<4;i+=1){
 		if(i!=3 && elev_get_button_signal(BUTTON_CALL_UP,i)){ // this results in elev_get_button_signal(BUTTON_CALL_UP,3) never being called
 			addOrder(i,UP);
 		}
@@ -127,17 +127,23 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;
-/*
+
 void removeAllOrders(){
-	order_priority_up[4]={0,0,0,0};
-	order_priority_down[4]={0,0,0,0};
 	for(int i=0;i<4;i+=1){
+		order_priority_up[i]=0;
+		order_priority_down[i]=0;
+	}
+	
+	for(int i=0;i<4;i+=1){//
 		for(int j = 0; j<=2;j+=1){
-		elev_set_button_lamp(j, i, 0);
+			if( !((i==0 && j==1) || (i==3 && j==0)) ){ // special cases
+				//printf("floor: %i \n dir: %i",i,j );
+				elev_set_button_lamp(j, i, 0);
+			}
 		}
 	}
 }
-*/
+
 // run EVERY time in FSM
 // can change state of system, and change direction
 /*
