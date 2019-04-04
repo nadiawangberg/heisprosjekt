@@ -10,7 +10,7 @@ typedef enum tag_state {
 } State;
 */
 
-been_in_2nd_floor = 0;
+int been_in_2nd_floor = 0;
 
 void PrintState(State state) {
 
@@ -35,9 +35,29 @@ void PrintState(State state) {
 }
 
 void StateMachineInit() {
+	// for testing for now
     elev_set_motor_direction(DIRN_UP); // kjører opp
     curr_state = RUNNING;
 
+    //elev_set_motor_direction(DIRN_STOP); // kjører opp
+    //curr_state = IDLE;
+
+}
+
+void transitionFromDoorOpen() {
+	// ALL STATE TRANSITIONS FROM DOOR OPEN
+	curr_state = RUNNING;
+	prev_state = DOOR_OPEN;
+
+	/* prepartion for more states
+	if (prev_state == EMERGENCYSTOP)
+		curr_state = EMERGENCYSTOP;
+	else if (direction_g == DIRN_UP || direction_g == DIRN_DOWN) :
+		curr_state = RUNNING;
+	else if (direction_g == DIRN_STOP) {
+		curr_state = IDLE;
+		}
+	*/
 }
 
 void StateMachine() {
@@ -58,7 +78,10 @@ void StateMachine() {
 				break;
 			case RUNNING:
 				if (elev_get_floor_sensor_signal() == 2 && !been_in_2nd_floor) { // third floor
+        			
         			curr_state = DOOR_OPEN;
+        			elev_set_stop_lamp(0);
+
         			prev_state = RUNNING;
         			been_in_2nd_floor = 1;
         			break;
@@ -71,15 +94,16 @@ void StateMachine() {
 				break;
 			case DOOR_OPEN:
 				if (prev_state != curr_state) {
-					DoorInit(); // timer started
+					DoorStateInit(); // timer started
 				}
 
 				if (TimerDone()) {
+					printf("TIMER DONE!");
 					curr_state = RUNNING;
-					ResetTimer();
+					DoorStateExit();
+					transitionFromDoorOpen();
 				}
 
-				prev_state = DOOR_OPEN;
 				break;
 			case STOP:
 				// noe

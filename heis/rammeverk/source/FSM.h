@@ -26,7 +26,8 @@ void StateMachineInit();
 
 void StateMachine();
 
-
 void PrintState(State state);
+
+void transitionFromDoorOpen();
 
 #endif // #ifndef __INCLUDE_FSM_H__

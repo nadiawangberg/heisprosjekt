@@ -1,5 +1,6 @@
 #include "elev.h"
 #include "FSM.h"
+#include "door.h"
 #include <stdio.h>
 #include <time.h>
 
@@ -24,7 +25,7 @@ int main() {
     printf("Press STOP button to stop elevator and exit program.\n");
 
     // Code is STUCK in this func atm
-    StateMachine(state);
+    StateMachine();
 
     /*
     while (1) {

@@ -1,6 +1,4 @@
 
-
-
 #ifndef __INCLUDE_DOOR_H__
 #define __INCLUDE_DOOR_H__
 
@@ -13,15 +11,18 @@
 //int msec = 0;
 
 
-int msec = 0, trigger = 3000; // 3 seconds??
-clock_t difference, before; 
+static int msec = 0;
+static int trigger = 3000;
+static clock_t difference, before;
 
-void DoorInit();
+void DoorStateInit();
 
 void ResetTimer();
 
 void StartTimer();
 
 int TimerDone();
+
+void DoorStateExit();
 
 #endif // #ifndef __INCLUDE_DRIVER_H__
