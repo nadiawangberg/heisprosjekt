@@ -3,6 +3,7 @@
 #include "order.h"
 #include "FSM.h"
 #include <stdio.h>
+
 void printOrders(){ //tested
 	printf("order_priority_up: ");
 	for (int i=0;i<4;i+=1){
@@ -14,9 +15,6 @@ void printOrders(){ //tested
 	}
 }
 
-
-
-//Nadia suggestion, make a new struct NOT use elev_motor_direction_t for this
 
 
 void addOrder(Floor floor, elev_order_direction_t dir){
@@ -41,13 +39,24 @@ void addOrder(Floor floor, elev_order_direction_t dir){
 		}
 		*/
 	}
-}
-	
+}	
 
-//hjelpe funksjon
-	
-// called in each floor, no matter what (prob 2 times for 1. and 4. floor)
-void removeOrders(){ //tested
+
+// removes all orders given a floor
+void removeOrders(Floor floor){
+	order_priority_up[floor]=0;
+	order_priority_down[floor]=0;
+
+	if (floor != FOURTH) {
+		elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
+	}
+
+	if (floor != FIRST) {
+		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);
+	}
+
+	elev_set_button_lamp(BUTTON_COMMAND,floor, 0);
+	/* 
 	if(order_priority_up[floor]==1){
 		order_priority_up[floor]=0;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
@@ -55,6 +64,7 @@ void removeOrders(){ //tested
 			order_priority_down[floor]=0;
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);}
 	}
+	*/
 	/* 
 	if(direction_g==DIRN_UP){
 		if(order_priority_up[floor]==1)
@@ -70,7 +80,7 @@ void removeOrders(){ //tested
 }
 
 
-void checkForOrders(){//feels if we have orders (button press), adds them to queue if there are orders    //tested
+void checkForOrders(){//feels if we have orders (button press), adds them to queue if there are orders (+lights)   //tested
 	for(int i=0;i<4;i+=1){
 		if(i!=3 && elev_get_button_signal(BUTTON_CALL_UP,i)){ // this results in elev_get_button_signal(BUTTON_CALL_UP,3) never being called
 			addOrder(i,UP);
