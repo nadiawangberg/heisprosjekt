@@ -1,17 +1,18 @@
-<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>330</x><y>130</y><w>530</w><h>110</h></coordinates><panel_attributes>Stop
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>260</x><y>120</y><w>530</w><h>110</h></coordinates><panel_attributes>Stop
 --
 -stop_light // stop state variable
 --
-+stopState() // checks if stopped and do stop functionality (S5, S6, S4, L6, S7)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>370</y><w>580</w><h>140</h></coordinates><panel_attributes>Order
++stopState() // checks if stopped and do stop functionality (S5, S6, S4, L6, S7)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>370</y><w>580</w><h>160</h></coordinates><panel_attributes>Order
 --
 -order_queue[int] // values 0-5 (defines floor + up down), order in que is priority
 -curr_order;
+-prev_order;
 --
 -addOrder(floor) // add to queue H1 (unless stop S6) , light on(L1)
 -removeOrder(floor) // remove from queue, light off (L2)
 +bool takeBonusOrder()// run in each floor, checks if floor has order in correct direction (see H2)
 +bool takeOrder(floor) // goes to a floor + H3 + H4 + checks if stop (returns bool if it managed or not)
-+ void checkForOrderAndAddOrderToList(button?) // kjører addOrder()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>250</y><w>210</w><h>90</h></coordinates><panel_attributes>LiftMovement
++ void checkForOrderAndAddOrderToList(button?) // kjører addOrder()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>250</y><w>210</w><h>90</h></coordinates><panel_attributes>LiftMovement
 --
 +floor // 0,1,2,3,-1
 --
@@ -25,13 +26,12 @@
 --
 +state_var
 --
-+switchState()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>500</y><w>420</w><h>250</h></coordinates><panel_attributes>lt=&lt;.
-</panel_attributes><additional_attributes>10;230;400;10</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>230</y><w>30</w><h>520</h></coordinates><panel_attributes>lt=&lt;.
-</panel_attributes><additional_attributes>10;500;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>350</y><w>310</w><h>400</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>290;380;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>30</y><w>210</w><h>90</h></coordinates><panel_attributes>I/O
++switchState()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>520</y><w>420</w><h>230</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;210;400;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>220</y><w>100</w><h>530</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>80;510;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>350</y><w>310</w><h>400</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>290;380;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>30</y><w>210</w><h>90</h></coordinates><panel_attributes>I/O
 --
-+floor // 0,1,2,3,-1
 --
-stuff som finnes fra før av</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>330</y><w>220</w><h>420</h></coordinates><panel_attributes>lt=&lt;.
-</panel_attributes><additional_attributes>10;400;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>860</x><y>110</y><w>100</w><h>160</h></coordinates><panel_attributes>lt=&lt;.
-</panel_attributes><additional_attributes>10;140;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>730</x><y>90</y><w>170</w><h>60</h></coordinates><panel_attributes>lt=&lt;.
-</panel_attributes><additional_attributes>10;40;150;10</additional_attributes></element></diagram>
+stuff som finnes fra før av</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>330</y><w>160</w><h>420</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;400;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>800</x><y>110</y><w>160</w><h>160</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;140;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>90</y><w>240</w><h>50</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;30;220;10</additional_attributes></element></diagram>
