@@ -2,6 +2,7 @@
 #include "liftMovement.h"
 #include "FSM.h"
 #include "door.h"
+#include "order.h"
 #include <stdio.h>
 #include <time.h>
 
@@ -10,7 +11,6 @@
 * @brief The main file, it does what
 * main files usually does
 */
-
 int main() {
     // Initialize hardware
     if (!elev_init()) {
