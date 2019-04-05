@@ -27,9 +27,9 @@ void PrintState(State state) {
 
 void StateMachineInit() {
 	// for testing for now
-	positionInit();
-    elev_set_motor_direction(DIRN_UP); // kjører opp
+	//positionInit();
     curr_state = RUNNING;
+    printf("DONE WITH STATE MACHINE INIT!!");
 
     //elev_set_motor_direction(DIRN_STOP); // kjører opp
     //curr_state = IDLE;
@@ -57,9 +57,6 @@ void transitionFromDoorOpen() {
 }
 
 void StateMachine() {
-
-	StateMachineInit();
-
 	while(1) {
 		// PrintState(state);
 

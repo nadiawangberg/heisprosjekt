@@ -2,6 +2,9 @@
 #ifndef __INCLUDE_LIFTMOVEMENT_H__
 #define __INCLUDE_LIFTMOVEMENT_H__
 
+#include "elev.h"
+#include <stdio.h>
+
 typedef enum tag_floor {
 	UNDEFINED = -1,
 	FIRST = 0,
@@ -10,8 +13,8 @@ typedef enum tag_floor {
 	FOURTH 
 } Floor;
 
-Floor current_floor = UNDEFINED;
-Floor last_floor = UNDEFINED;
+static Floor current_floor = UNDEFINED;
+static Floor last_floor = UNDEFINED;
 
 /**
   O1, O2, O3
