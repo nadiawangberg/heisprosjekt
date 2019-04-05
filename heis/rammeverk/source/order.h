@@ -21,8 +21,8 @@ typedef enum tag_elev_order_direction {
 //int order_priority_out[4][2]={{0,0},{0,0},{0,0},{0,0}};
 
 // Not global, member variables for order
-static int order_priority_up[4]={0,0,1,0};//initalized as  zero vector
-static int order_priority_down[4];
+static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
+static int order_priority_down[4]={0,0,0,0};
 
 // probably global?
 static elev_motor_direction_t direction_g;

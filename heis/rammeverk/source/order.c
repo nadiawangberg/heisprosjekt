@@ -96,7 +96,7 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	else if (current_direction==DIRN_UP){
 		for(int i=floor+1;i<=3;i+=1){
 			if(order_priority_up[i]){
-				dir=DIRN_UP;
+				return DIRN_UP;
 			}
 		}
 		for(int i=floor-1;i>=0;i-=1){
@@ -118,6 +118,7 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 		}
 	}
 	else {return DIRN_STOP;}
+	return DIRN_STOP;
 }
 		/*direction_g doesnt change
 		else if (orders in the other direction)
@@ -151,13 +152,13 @@ void removeAllOrders(){
 // run EVERY time in FSM
 // can change state of system, and change direction
 
-void orderManager() {
+/*void orderManager() {
 	
 	if (state == STOP){
 		removeAllOrders();
-		/*delete everything in list
+		delete everything in list
 		fuck with lights?
-		osv*/
+		osv
 		return;
 	}
 		
@@ -175,3 +176,4 @@ void orderManager() {
 		}
 	}
 }
+*/

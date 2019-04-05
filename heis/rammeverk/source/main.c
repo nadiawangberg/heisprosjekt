@@ -1,15 +1,14 @@
 #include "elev.h"
 #include "liftMovement.h"
 #include "order.h"
+#include "FSM.h"
 #include <stdio.h>
-
 
 /**
 * @file
 * @brief The main file, it does what
 * main files usually does
 */
-
 int main() {
     // Initialize hardware
     if (!elev_init()) {
@@ -19,9 +18,11 @@ int main() {
     
     printf("Press STOP button to stop elevator and exit program.\n");
    //positionInit();
-    printf("%i",selectDir(1,UP));
+    //printf("%i",selectDir(1,UP));
     elev_set_motor_direction(DIRN_STOP); // kjører opp
     //DIRECTION=DIRN_UP;
+    //removeAllOrders();        
+    //printOrders();
     while (1) {
         // Change direction when we reach top/bottom floor
      /*   if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
@@ -37,10 +38,10 @@ int main() {
         elev_set_button_lamp(BUTTON_CALL_DOWN, 1, 1);
 */      
 
-      /*  checkForOrders();
+        //checkForOrders();
         printOrders();
-        selectDir(1,UP);
-    */
+        //elev_set_motor_direction(selectDir(SECOND,DIRN_UP));
+    
        // removeAllOrders();
 
 /*
