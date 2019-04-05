@@ -1,4 +1,6 @@
 
+#ifndef __INCLUDE_LIFTMOVEMENT_H__
+#define __INCLUDE_LIFTMOVEMENT_H__
 
 typedef enum tag_floor {
 	UNDEFINED = -1,
@@ -28,3 +30,5 @@ void up();
   Moves lift down
 */
 void down();
+
+#endif

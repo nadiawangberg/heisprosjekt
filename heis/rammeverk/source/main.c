@@ -1,5 +1,5 @@
 #include "elev.h"
-#include "liftMovement.c"
+#include "liftMovement.h"
 #include "FSM.h"
 #include "door.h"
 #include <stdio.h>
@@ -22,9 +22,6 @@ int main() {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
-    /*
-    printf("Press STOP button to stop elevator and exit program.\n");
-
     // Code is STUCK in this func atm
     StateMachine();
 
@@ -51,9 +48,6 @@ int main() {
         }
     }
     */
-    //elev_set_motor_direction(DIRN_UP);
-
-    positionInit();
     printf("\n%i\n",current_floor);
     return 0;
 }

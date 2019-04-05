@@ -1,14 +1,5 @@
 #include "FSM.h"
-
-/*
-typedef enum tag_state {
-	INIT = 0,
-	IDLE,
-	RUNNING,
-	DOOR_OPEN,
-	STOP 
-} State;
-*/
+#include "liftMovement.h"
 
 int been_in_2nd_floor = 0;
 
@@ -36,6 +27,7 @@ void PrintState(State state) {
 
 void StateMachineInit() {
 	// for testing for now
+	positionInit();
     elev_set_motor_direction(DIRN_UP); // kjører opp
     curr_state = RUNNING;
 
@@ -52,11 +44,15 @@ void transitionFromDoorOpen() {
 	/* prepartion for more states
 	if (prev_state == EMERGENCYSTOP)
 		curr_state = EMERGENCYSTOP;
-	else if (direction_g == DIRN_UP || direction_g == DIRN_DOWN) :
+	else if (order_direction_g == DIRN_UP || order_direction_g == DIRN_DOWN) :
 		curr_state = RUNNING;
-	else if (direction_g == DIRN_STOP) {
+		elev_set_door_open_lamp(0); // close doors 
+	else if (no orders) {
+		elev_set_door_open_lamp(0); // close doors 
 		curr_state = IDLE;
 		}
+
+	else if (no orders)
 	*/
 }
 
@@ -99,6 +95,7 @@ void StateMachine() {
 
 				if (TimerDone()) {
 					curr_state = RUNNING;
+					// transitionFromDoorOpen();
 					DoorStateExit();
 					break;
 				}
