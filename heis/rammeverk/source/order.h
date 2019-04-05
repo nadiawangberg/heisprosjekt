@@ -1,6 +1,7 @@
-#include "liftMovement.h"
+//#include "liftMovement.h"
 #ifndef __INCLUDE_ORDER_H__
 #define __INCLUDE_ORDER_H__
+#include "liftMovement.h"
 
 /*
 typedef Struct tag_order {

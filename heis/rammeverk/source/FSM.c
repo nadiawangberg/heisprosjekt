@@ -1,5 +1,6 @@
 #include "FSM.h"
 #include "liftMovement.h"
+#include "order.h"
 
 int been_in_2nd_floor = 0;
 
@@ -61,6 +62,9 @@ void StateMachine() {
 		// PrintState(state);
 
 		// gjør generelle ting unless visse krav
+
+		checkForOrders();
+		printOrders();
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -71,6 +75,9 @@ void StateMachine() {
 				break;
 			case RUNNING:
 				if (elev_get_floor_sensor_signal() == 2 && !been_in_2nd_floor) { // third floor
+        			
+
+        			removeOrders(THIRD);
         			
         			curr_state = DOOR_OPEN;
         			elev_set_stop_lamp(0);

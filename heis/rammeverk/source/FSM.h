@@ -1,6 +1,3 @@
-#ifndef __INCLUDE_DRIVER_H__
-#define __INCLUDE_DRIVER_H__
-
 #ifndef __INCLUDE_FSM_H__
 #define __INCLUDE_FSM_H__
 
