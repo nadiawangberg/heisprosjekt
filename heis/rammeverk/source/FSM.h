@@ -14,6 +14,7 @@
 static elev_motor_direction_t motor_dir_g = DIRN_STOP;
 static order_direction_t order_dir = DOWN;
 static Floor curr_floor = UNDEFINED;
+static Floor last_floor = UNDEFINED;
 
 typedef enum tag_state {
 	INIT = 0,

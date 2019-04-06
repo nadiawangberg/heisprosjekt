@@ -1,6 +1,5 @@
 #include "FSM.h"
 
-int been_in_2nd_floor = 0;
 
 void PrintState(State state) {
 
@@ -61,14 +60,18 @@ void StateMachine() {
 
 		// gjør generelle ting unless visse krav
 
-		checkForOrders();
+		checkForOrders(); // checks if any buttons pressed, adds to order list
 
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
-		if (curr_floor != UNDEFINED) {
-			motor_dir_g = selectDir(curr_floor, motor_dir_g);
+		if (curr_floor != UNDEFINED) { // we're in a floor
+			//motor_dir_g = selectDir(curr_floor, motor_dir_g);
 			elev_set_floor_indicator(curr_floor);
+			removeOrders(curr_floor);
+			last_floor = curr_floor;
 
 		}
+
+		elev_set_floor_indicator(last_floor);
 		printOrders();
 		switch(curr_state) {
 			case INIT:
@@ -79,15 +82,11 @@ void StateMachine() {
 				// noe
 				break;
 			case RUNNING:
-				if (elev_get_floor_sensor_signal() == 2 && !been_in_2nd_floor) { // third floor
-        			
-
-        			removeOrders(THIRD);
-        			
+				if (curr_floor != UNDEFINED && curr_floor == last_floor) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
         			elev_set_stop_lamp(0);
 
-        			been_in_2nd_floor = 1;
+        			//motor_dir_g = DIRN_UP;
         			prev_state = RUNNING;
         			break;
     			}
