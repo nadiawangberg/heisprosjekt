@@ -128,6 +128,13 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 			}
 		}
 	}
+	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
+		//gjøre noe for å begynne å kjøre igjen, feks hvis lista ikke er tom
+
+		return DIRN_UP; // NOOOOOOOOOOO, FIIIIIIIXXXXXXX
+	}
+
+
 	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
 }
 		/*motor_dir_g doesnt change
@@ -142,6 +149,17 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;
+
+int orderListsEmpty() {
+	for(int i=0; i<4; i+=1){
+		if (order_priority_up[i] || order_priority_down[i]){
+			return 0;
+		}
+
+	}
+	return 1; 
+}
+
 
 void removeAllOrders(){
 	for(int i=0;i<4;i+=1){

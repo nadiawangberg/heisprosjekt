@@ -28,10 +28,6 @@ void StateMachineInit() {
 	//positionInit();
     curr_state = RUNNING;
     printf("DONE WITH STATE MACHINE INIT!!");
-
-    //elev_set_motor_direction(DIRN_STOP); // kjører opp
-    //curr_state = IDLE;
-
 }
 
 void transitionFromDoorOpen() {
@@ -65,10 +61,10 @@ void StateMachine() {
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
-			//motor_dir_g = selectDir(curr_floor, motor_dir_g);
+			motor_dir_g = selectDir(curr_floor, motor_dir_g);
 			elev_set_floor_indicator(curr_floor);
 			//removeOrders(curr_floor);
-			//last_floor = curr_floor;
+			last_floor = curr_floor;
 
 		}
 
@@ -81,6 +77,7 @@ void StateMachine() {
 				break;
 			case IDLE:
 				// noe
+				prev_state = IDLE;
 				break;
 			case RUNNING:
 				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
@@ -93,7 +90,7 @@ void StateMachine() {
         			break;
     			}
 
-				elev_set_motor_direction(DIRN_UP); // motor_dir_g
+				elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
 				elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
 				prev_state = RUNNING;
 				break;

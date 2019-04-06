@@ -79,4 +79,6 @@ int isOrderInFloor(Floor floor);
   @return 1 if there are orders, 0 if there are no orders.
 */
 
+int orderListsEmpty();
+
 #endif
