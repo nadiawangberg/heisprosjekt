@@ -26,14 +26,14 @@ static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
 static int order_priority_down[4]={0,0,0,0};
 
 // probably global?
-static elev_motor_direction_t direction_g;
+static elev_motor_direction_t motor_dir_g;
 /**
   Add a order.
   @param dir Which direction type to check. Can be DOWN, COMMAND or UP.
   @param floor Which floor to add order. Must be 0-3.
   @return void.
 */
-void addOrder(Floor floor, elev_order_direction_t dir); // dir = order_direction
+void addOrder(Floor floor, elev_order_direction_t order_dir); // dir = order_direction
 /**
   Removes all order in the current floor that goes in the elevators direction.
   @param floor Which floor to remove order in. Must be 0-3.

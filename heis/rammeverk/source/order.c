@@ -17,25 +17,26 @@ void printOrders(){ //tested
 
 
 
-void addOrder(Floor floor, elev_order_direction_t dir){
-	if(dir==UP){ // person wanting to go up
+void addOrder(Floor floor, elev_order_direction_t order_dir){
+	if(order_dir==UP){ // person wanting to go up
 		order_priority_up[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 1);	
 	}
-	else if(dir==DOWN){
+	else if(order_dir==DOWN){
 		order_priority_down[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 1);
 	}
-	else{ // aka person in lift pressed button (1-4) 
+	else if (order_dir==COMMAND){ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
-		/*if(direction_g!=DIRN_STOP)
-		{
-			if(direction_g==DIRN_UP){
+		/*
+		if(motor_dir_g==DIRN_UP){
 			order_priority_up[floor]=1;
-			}
-			else{ // Dir = down
-				order_priority_down[floor]=1;
-			}
+		}
+		else if (motor_dir_g==DIRN_DOWN){ // Dir = down
+			order_priority_down[floor]=1;
+		}
+		else if (motor_dir_g==DIRN_STOP)
+			order_priority_up[floor]=1; // NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
 		}
 		*/
 	}
@@ -66,7 +67,7 @@ void removeOrders(Floor floor){
 	}
 	*/
 	/* 
-	if(direction_g==DIRN_UP){
+	if(motor_dir_g==DIRN_UP){
 		if(order_priority_up[floor]==1)
 			order_priority_up[floor]=0;
 			elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
@@ -127,12 +128,11 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 			}
 		}
 	}
-	else {return DIRN_STOP;}
-	return DIRN_STOP;
+	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
 }
-		/*direction_g doesnt change
+		/*motor_dir_g doesnt change
 		else if (orders in the other direction)
-			direction_g is other direction
+			motor_dir_g is other direction
 		else  
 			direction = stop*/
 	
@@ -179,7 +179,7 @@ void removeAllOrders(){
 	
 
 	// state transistions can be done from main while(1) instead
-	if (direction_g != DIRN_STOP){ // can change names, remember consistensy!
+	if (motor_dir_g != DIRN_STOP){ // can change names, remember consistensy!
 		state = RUNNING;
 	else{ 
 		state = IDLE;
