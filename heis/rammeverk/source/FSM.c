@@ -1,6 +1,7 @@
 #include "FSM.h"
 #include "liftMovement.h"
 #include "order.h"
+#include "stop.h"
 
 int been_in_2nd_floor = 0;
 
@@ -19,7 +20,7 @@ void PrintState(State state) {
 		case DOOR_OPEN:
 			printf("DoorOpen state");
 			break;
-		case STOP:
+		case EMERGENCYSTOP:
 			printf("EmergencyStop state");		
 			break;
 		return;
@@ -65,7 +66,10 @@ void StateMachine() {
 
 		checkForOrders();
 		printOrders();
-		checkEmergencyStop();
+		if(elev_get_stop_signal()){
+			curr_state=EMERGENCYSTOP;
+		}
+		//PrintState(curr_state);
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -89,7 +93,7 @@ void StateMachine() {
     			}
 
 				elev_set_motor_direction(DIRN_UP);
-				elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
+				//elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
 				
 				prev_state = RUNNING;
 				break;

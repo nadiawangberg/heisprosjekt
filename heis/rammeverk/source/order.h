@@ -26,7 +26,7 @@ static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
 static int order_priority_down[4]={0,0,0,0};
 
 // probably global?
-static elev_motor_direction_t direction_g;
+static elev_motor_direction_t motor_dir_g;
 /**
   Add a order.
   @param dir Which direction type to check. Can be DOWN, COMMAND or UP.
