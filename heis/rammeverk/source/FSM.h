@@ -13,7 +13,7 @@ typedef enum tag_state {
 	IDLE,
 	RUNNING,
 	DOOR_OPEN,
-	STOP 
+	EMERGENCYSTOP
 } State;
 
 

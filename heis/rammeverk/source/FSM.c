@@ -65,6 +65,7 @@ void StateMachine() {
 
 		checkForOrders();
 		printOrders();
+		checkEmergencyStop();
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -106,8 +107,17 @@ void StateMachine() {
 
 				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
 				break;
-			case STOP:
-				// noe
+			case EMERGENCYSTOP:
+				emergencyStopInit();
+				while(elev_get_stop_signal());
+				emergencyStopExit();
+				if (prev_state==DOOR_OPEN){
+					curr_state=DOOR_OPEN;
+				}
+				else{
+					curr_state=IDLE;
+				}
+				prev_state=EMERGENCYSTOP;
 				break;
 		}
 	}
