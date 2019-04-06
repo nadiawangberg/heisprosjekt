@@ -83,10 +83,10 @@ void StateMachine() {
 				// noe
 				break;
 			case RUNNING:
-				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
+				if (curr_floor != UNDEFINED && shouldLiftStop(curr_floor)) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
         			removeOrders(curr_floor);
-        			elev_set_stop_lamp(0);
+        			//elev_set_stop_lamp(0);
 
         			//motor_dir_g = DIRN_UP;
         			prev_state = RUNNING;

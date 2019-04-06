@@ -74,7 +74,7 @@ The number of lights that are on are the amount of orders that.
 */
 
 
-int isOrderInFloor(Floor floor);
+int shouldLiftstop(Floor floor);
 /* 
   @return 1 if there are orders, 0 if there are no orders.
 */
