@@ -4,7 +4,7 @@
 #include "FSM.h"
 #include <stdio.h>
 
-void printOrders(){ //tested
+void printOrders(){
 	printf("order_priority_up: ");
 	for (int i=0;i<4;i+=1){
 			printf("%d ",order_priority_up[i]);
@@ -17,7 +17,7 @@ void printOrders(){ //tested
 
 
 
-void addOrder(Floor floor, elev_order_direction_t order_dir){
+void addOrder(Floor floor, order_direction_t order_dir){
 	if(order_dir==UP){ // person wanting to go up
 		order_priority_up[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 1);	

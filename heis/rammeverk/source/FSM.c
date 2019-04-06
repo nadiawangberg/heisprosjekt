@@ -1,6 +1,4 @@
 #include "FSM.h"
-#include "liftMovement.h"
-#include "order.h"
 
 int been_in_2nd_floor = 0;
 
@@ -64,6 +62,13 @@ void StateMachine() {
 		// gjør generelle ting unless visse krav
 
 		checkForOrders();
+
+		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
+		if (curr_floor != UNDEFINED) {
+			motor_dir_g = selectDir(curr_floor, motor_dir_g);
+			elev_set_floor_indicator(curr_floor);
+
+		}
 		printOrders();
 		switch(curr_state) {
 			case INIT:
@@ -82,8 +87,8 @@ void StateMachine() {
         			curr_state = DOOR_OPEN;
         			elev_set_stop_lamp(0);
 
-        			prev_state = RUNNING;
         			been_in_2nd_floor = 1;
+        			prev_state = RUNNING;
         			break;
     			}
 

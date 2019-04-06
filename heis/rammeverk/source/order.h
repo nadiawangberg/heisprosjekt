@@ -11,11 +11,11 @@ typedef Struct tag_order {
 */
 
 
-typedef enum tag_elev_order_direction { 
+typedef enum tag_order_direction { 
     DOWN = -1,
     COMMAND, // inside lift
     UP
-} elev_order_direction_t;
+} order_direction_t;
 
 
 //int order_priority_in[4][2]={{0,0},{0,0},{0,0},{0,0}};
@@ -25,15 +25,13 @@ typedef enum tag_elev_order_direction {
 static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
 static int order_priority_down[4]={0,0,0,0};
 
-// probably global?
-static elev_motor_direction_t motor_dir_g;
 /**
   Add a order.
   @param dir Which direction type to check. Can be DOWN, COMMAND or UP.
   @param floor Which floor to add order. Must be 0-3.
   @return void.
 */
-void addOrder(Floor floor, elev_order_direction_t order_dir); // dir = order_direction
+void addOrder(Floor floor, order_direction_t order_dir); // dir = order_direction
 /**
   Removes all order in the current floor that goes in the elevators direction.
   @param floor Which floor to remove order in. Must be 0-3.

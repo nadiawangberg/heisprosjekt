@@ -3,10 +3,17 @@
 
 #include "door.h"
 #include "elev.h"
+#include "order.h"
+#include "liftMovement.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <time.h>
+
+// global variables
+static elev_motor_direction_t motor_dir_g = DIRN_STOP;
+static order_direction_t order_dir = DOWN;
+static Floor curr_floor = UNDEFINED;
 
 typedef enum tag_state {
 	INIT = 0,
