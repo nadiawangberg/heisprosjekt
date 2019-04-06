@@ -64,14 +64,15 @@ void StateMachine() {
 
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
 		if (curr_floor != UNDEFINED) { // we're in a floor
+			elev_set_floor_indicator(curr_floor);
 			//motor_dir_g = selectDir(curr_floor, motor_dir_g);
 			elev_set_floor_indicator(curr_floor);
-			removeOrders(curr_floor);
-			last_floor = curr_floor;
+			//removeOrders(curr_floor);
+			//last_floor = curr_floor;
 
 		}
 
-		elev_set_floor_indicator(last_floor);
+		//elev_set_floor_indicator(last_floor);
 		printOrders();
 		switch(curr_state) {
 			case INIT:
@@ -82,8 +83,9 @@ void StateMachine() {
 				// noe
 				break;
 			case RUNNING:
-				if (curr_floor != UNDEFINED && curr_floor == last_floor) { // we're in a floor, stop     			
+				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
+        			removeOrders(curr_floor);
         			elev_set_stop_lamp(0);
 
         			//motor_dir_g = DIRN_UP;
@@ -91,9 +93,8 @@ void StateMachine() {
         			break;
     			}
 
-				elev_set_motor_direction(DIRN_UP);
+				elev_set_motor_direction(DIRN_UP); // motor_dir_g
 				elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
-				
 				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:

@@ -73,4 +73,10 @@ When we check to stop we just check the ligths lmao.
 The number of lights that are on are the amount of orders that.
 */
 
+
+int isOrderInFloor(Floor floor);
+/* 
+  @return 1 if there are orders, 0 if there are no orders.
+*/
+
 #endif
