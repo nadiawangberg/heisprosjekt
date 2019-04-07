@@ -105,36 +105,56 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 		return DIRN_UP;
 	}
 	else if (current_direction==DIRN_UP){
-		for(int i=floor+1;i<=3;i+=1){
+		for(int i=floor+1;i<=3;i+=1){ // orders above me? (prioritizes continuing in same direction)
 			if(order_priority_up[i]){
 				return DIRN_UP;
 			}
 		}
-		for(int i=floor-1;i>=0;i-=1){
+		for(int i=floor-1;i>=0;i-=1){ // orders below me?
 			if(order_priority_down[i]){
 				return DIRN_DOWN;
 			}
 		}
+
+		// There are no orders!! GO TO IDLE
 	}
 	else if(current_direction==DIRN_DOWN){
 		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){
+			if(order_priority_down[i]){ // orders below me?? (prioritizes continuing in same direction)
 				return DIRN_DOWN;
 			}
 		}
 		for(int i=floor+1;i<=3;i+=1){
+			if(order_priority_up[i]){ // orders above me?
+				return DIRN_UP;
+			}
+		}
+
+		// There are no orders!! GO TO IDLE
+	}
+	// EMERGENCY STOP / IN IDLE
+	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
+		//gjøre noe for å begynne å kjøre igjen når lista ikke er tom
+
+		// ABOVE ME
+		for(int i=floor+1;i<=3;i+=1){ // orders above me? (prioritizes continuing in same direction)
 			if(order_priority_up[i]){
 				return DIRN_UP;
 			}
 		}
+		// BELOW ME
+		for(int i=floor-1;i>=0;i-=1){ // orders below me?
+			if(order_priority_down[i]){
+				return DIRN_DOWN;
+			}
+		}
 	}
-	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
-		//gjøre noe for å begynne å kjøre igjen, feks hvis lista ikke er tom
 
-		return DIRN_UP; // NOOOOOOOOOOO, FIIIIIIIXXXXXXX
+	else if (orderListsEmpty()) {
+		return DIRN_STOP; // IDLE STATE!!
 	}
 
-
+	printf("UNDEFINED STATE, CODE SHOULD NOT BE HERE!!");
 	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
 }
 		/*motor_dir_g doesnt change
@@ -155,7 +175,6 @@ int orderListsEmpty() {
 		if (order_priority_up[i] || order_priority_down[i]){
 			return 0;
 		}
-
 	}
 	return 1; 
 }

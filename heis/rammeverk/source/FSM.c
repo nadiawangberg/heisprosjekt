@@ -60,7 +60,6 @@ void StateMachine() {
 
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
 		if (curr_floor != UNDEFINED) { // we're in a floor
-			elev_set_floor_indicator(curr_floor);
 			motor_dir_g = selectDir(curr_floor, motor_dir_g);
 			elev_set_floor_indicator(curr_floor);
 			//removeOrders(curr_floor);
