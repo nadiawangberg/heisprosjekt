@@ -89,7 +89,7 @@ void StateMachine() {
 				//PrintState(curr_state);
 				break;
 			case RUNNING:
-				if (curr_floor != UNDEFINED && shouldLiftStop(curr_floor)) { // we're in a floor, stop     			
+				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
         			removeOrders(curr_floor);
         			//elev_set_stop_lamp(0);

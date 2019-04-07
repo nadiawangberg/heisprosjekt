@@ -98,68 +98,7 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 
 
 elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
-	// if (more orders in the current direction) 
-	/*if(floor==FOURTH){
-		return DIRN_DOWN;
-	}
-	else if(floor==FIRST){
-		return DIRN_UP;
-	}
-	else if (current_direction==DIRN_UP){
-		for(int i=floor+1;i<=3;i+=1){ 
-			if(order_priority_up[i]){ // if there are orders in order_up ABOVE you
-				return DIRN_UP;
-			}
-		}
-		 // orders below me?
-		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){ // if there are orders in order_down BELOW you
-				return DIRN_DOWN;
-			}
-		}
 
-		// There are no orders!! GO TO IDLE
-	}
-	else if(current_direction==DIRN_DOWN){
-		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){ // orders below me?? (prioritizes continuing in same direction)
-				return DIRN_DOWN;
-			}
-		}
-		for(int i=floor+1;i<=3;i+=1){
-			if(order_priority_up[i]){ // orders above me?
-				return DIRN_UP;
-			}
-		}
-
-		// There are no orders!! GO TO IDLE
-	}
-	// IN EMERGENCY STOP / IN IDLE
-	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
-		//gjøre noe for å begynne å kjøre igjen, feks hvis lista ikke er tom
-		for(int i=0;i<=floor;i+=1){
-			if(order_priority_up[i] || order_priority_down[i]){
-				return DIRN_DOWN;
-			}
-		}
-		return DIRN_UP;
-	}
-
-
-	if (orderListsEmpty()) {
-		return DIRN_STOP; // if BOTH order lists empty, return dirn_stop (this is idle state)
-	}
-
-	else if (orderListsEmpty()) {
-		return DIRN_STOP; // IDLE STATE!!
-	}
-
-	// DIRN_UP og STATE = running
-	printf("state: %d", curr_state);
-	printf("current_direction: %d", current_direction);
-	printf("ERROR, CODE SHOULD NEVER BE HERE, UNDEFINED");
-
-	return DIRN_STOP;*/
 	switch(current_direction){
 		case DIRN_UP:
 			for(int i=floor+1;i<4;i+=1){
@@ -186,26 +125,19 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 			}  
 			return DIRN_STOP;                                                                                                                                              
 		case DIRN_STOP: //fra idle
-			//printf("In idle, direction stop");
 			for(int i=floor+1;i<4;i+=1){ 
 				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
-					printf("CHOSE UP!");
 					return DIRN_UP;
 				}
 			}
 			for(int i=floor-1;i>=0;i-=1){
-				printf("will I choose down??");
 				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
-					printf("CHOSE DOWN!");
 					return DIRN_DOWN;
 				}
 			}
-			//printf("CHOSE STOP!");
 			return DIRN_STOP;
 		}
 }
-
-
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;
@@ -237,7 +169,7 @@ void removeAllOrders(){
 }
 
 
-int shouldLiftstop(Floor floor) { // in the future this should be shouldLiftstop
+int shouldLiftstop(Floor floor) {
 	if (floor != UNDEFINED){
 		if(floor==FIRST || floor==FOURTH){
 			return 1;
@@ -254,6 +186,14 @@ int shouldLiftstop(Floor floor) { // in the future this should be shouldLiftstop
 	return 0;
 }
 
+int isOrderInFloor(Floor floor) {
+	if (floor != UNDEFINED) {
+		return (order_priority_up[floor] || order_priority_up[floor]);
+	}
+	else {
+		return 0;
+	}
+}
 
 
 // run EVERY time in FSM
