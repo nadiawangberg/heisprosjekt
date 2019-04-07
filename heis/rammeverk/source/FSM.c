@@ -26,10 +26,11 @@ void PrintState(State state) {
 void StateMachineInit() {
 	// for testing for now
 	//positionInit();
-	motor_dir_g = DIRN_DOWN;
+	//motor_dir_g = DIRN_DOWN;
 	positionInit();
     curr_state = RUNNING;
-    motor_dir_g = selectDir(curr_floor, motor_dir_g);
+    motor_dir_g = DIRN_UP;
+    //motor_dir_g = selectDir(curr_floor, motor_dir_g);
     printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
 }

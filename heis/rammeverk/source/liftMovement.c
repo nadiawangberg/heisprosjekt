@@ -4,7 +4,7 @@ void positionInit(){
 	elev_set_motor_direction(DIRN_DOWN);
 	//find floor
 	do{
-			floor=elev_get_floor_sensor_signal();
+		floor=elev_get_floor_sensor_signal();
 	} while(floor==UNDEFINED);
 	
 	//last_floor=current_floor; 
