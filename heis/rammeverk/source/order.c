@@ -132,7 +132,7 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 
 		// There are no orders!! GO TO IDLE
 	}
-	// EMERGENCY STOP / IN IDLE
+	// IN EMERGENCY STOP / IN IDLE
 	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
 		//gjøre noe for å begynne å kjøre igjen når lista ikke er tom
 
@@ -157,13 +157,6 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	printf("UNDEFINED STATE, CODE SHOULD NOT BE HERE!!");
 	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
 }
-		/*motor_dir_g doesnt change
-		else if (orders in the other direction)
-			motor_dir_g is other direction
-		else  
-			direction = stop*/
-	
-
 
 
 	// looks at order lists
