@@ -28,8 +28,8 @@ void StateMachineInit() {
 	//positionInit();
 	//motor_dir_g = DIRN_DOWN;
 	positionInit();
-    curr_state = RUNNING;
-    motor_dir_g = DIRN_UP;
+    curr_state = IDLE;
+    motor_dir_g = DIRN_STOP;
     //motor_dir_g = selectDir(curr_floor, motor_dir_g);
     printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
@@ -76,21 +76,26 @@ void StateMachine() {
 				//noe
 				break;
 			case IDLE:
-				// noe
+			 	motor_dir_g=selectDir(floor,DIRN_STOP);
+				if(motor_dir_g!=DIRN_STOP){
+					curr_state=RUNNING;
+					elev_set_motor_direction(motor_dir_g);
+				}				
 				prev_state = IDLE;
+				PrintState(curr_state);
 				break;
 			case RUNNING:
 				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, and there is an order here  			
         			curr_state = DOOR_OPEN;
         			removeOrders(curr_floor);
-        			elev_set_stop_lamp(0);
+        			//elev_set_stop_lamp(0);
 
         			//motor_dir_g = DIRN_UP;
         			prev_state = RUNNING;
         			break;
     			}
     			elev_set_stop_lamp(1);
-				elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
+				//elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
 				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:
@@ -99,7 +104,13 @@ void StateMachine() {
 				}
 
 				if (TimerDone()) {
-					curr_state = RUNNING;
+					DoorStateExit(curr_floor,motor_dir_g);
+					if(motor_dir_g!=DIRN_STOP){
+						curr_state = RUNNING;
+					}
+					else{
+						curr_state=IDLE;
+					}
 					// transitionFromDoorOpen();
 					DoorStateExit(curr_floor,motor_dir_g);
 					break;

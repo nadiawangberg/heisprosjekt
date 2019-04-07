@@ -131,8 +131,12 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	}
 	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
 		//gjøre noe for å begynne å kjøre igjen, feks hvis lista ikke er tom
-
-		return DIRN_UP; // NOOOOOOOOOOO, FIIIIIIIXXXXXXX
+		for(int i=0;i<=floor;i+=1){
+			if(order_priority_up[i] || order_priority_down[i]){
+				return DIRN_DOWN;
+			}
+		}
+		return DIRN_UP;
 	}
 
 
