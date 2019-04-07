@@ -237,11 +237,21 @@ void removeAllOrders(){
 }
 
 
-int isOrderInFloor(Floor floor) { // in the future this should be shouldLiftstop
-	if (floor != UNDEFINED)
-		return (order_priority_up[floor] || order_priority_down[floor]);
-	else
-		return 0;
+int shouldLiftstop(Floor floor) { // in the future this should be shouldLiftstop
+	if (floor != UNDEFINED){
+		if(floor==FIRST || floor==FOURTH){
+			return 1;
+		}
+		else if(motor_dir_g==DIRN_UP)
+		{
+			return order_priority_up[floor];
+		}
+		else if(motor_dir_g==DIRN_DOWN)
+		{
+			return order_priority_down[floor];
+		}
+		}
+	return 0;
 }
 
 
