@@ -62,6 +62,9 @@ void StateMachine() {
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			motor_dir_g = selectDir(curr_floor, motor_dir_g);
+			if (motor_dir_g == DIRN_STOP) {
+				printf("motor_dir_g is DIRN_STOP");
+			}
 			elev_set_floor_indicator(curr_floor);
 			//removeOrders(curr_floor);
 			last_floor = curr_floor;
@@ -69,7 +72,7 @@ void StateMachine() {
 		}
 
 		//elev_set_floor_indicator(last_floor);
-		printOrders();
+		//printOrders();
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -83,15 +86,13 @@ void StateMachine() {
 				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
         			removeOrders(curr_floor);
-        			elev_set_stop_lamp(0);
-
+        			
         			//motor_dir_g = DIRN_UP;
         			prev_state = RUNNING;
         			break;
     			}
 
 				elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
-				elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
 				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:

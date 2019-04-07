@@ -28,17 +28,18 @@ void addOrder(Floor floor, order_direction_t order_dir){
 	}
 	else if (order_dir==COMMAND){ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
-		/*
+		
 		if(motor_dir_g==DIRN_UP){
 			order_priority_up[floor]=1;
 		}
 		else if (motor_dir_g==DIRN_DOWN){ // Dir = down
 			order_priority_down[floor]=1;
 		}
-		else if (motor_dir_g==DIRN_STOP)
-			order_priority_up[floor]=1; // NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+		else if (motor_dir_g==DIRN_STOP) {
+			// NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+			order_priority_up[floor]=1;
 		}
-		*/
+		
 	}
 }	
 
@@ -105,13 +106,13 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 		return DIRN_UP;
 	}
 	else if (current_direction==DIRN_UP){
-		for(int i=floor+1;i<=3;i+=1){
-			if(order_priority_up[i]){
+		for(int i=floor+1;i<=3;i+=1){ 
+			if(order_priority_up[i]){ // if there are orders in order_up ABOVE you
 				return DIRN_UP;
 			}
 		}
 		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){
+			if(order_priority_down[i]){ // if there are orders in order_down BELOW you
 				return DIRN_DOWN;
 			}
 		}
@@ -135,7 +136,7 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	}
 
 
-	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
+	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop (this is idle state)
 }
 		/*motor_dir_g doesnt change
 		else if (orders in the other direction)
