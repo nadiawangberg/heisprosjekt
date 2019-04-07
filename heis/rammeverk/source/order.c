@@ -183,18 +183,24 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 				if(order_priority_up[i]||order_priority_down[i]){
 					return DIRN_UP;
 				}
-			}                                                                                                                                                 
+			}  
+			return DIRN_STOP;                                                                                                                                              
 		case DIRN_STOP: //fra idle
+			//printf("In idle, direction stop");
 			for(int i=floor+1;i<4;i+=1){ 
 				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					printf("CHOSE UP!");
 					return DIRN_UP;
 				}
 			}
 			for(int i=floor-1;i>=0;i-=1){
+				printf("will I choose down??");
 				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					printf("CHOSE DOWN!");
 					return DIRN_DOWN;
 				}
 			}
+			//printf("CHOSE STOP!");
 			return DIRN_STOP;
 		}
 }

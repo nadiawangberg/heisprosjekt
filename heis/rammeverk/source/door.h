@@ -28,6 +28,6 @@ void StartTimer();
 
 int TimerDone();
 
-void DoorStateExit(Floor curr_floor,elev_motor_direction_t motor_dir_g);
+void DoorStateExit(Floor curr_floor);;
 
 #endif // #ifndef __INCLUDE_DRIVER_H__

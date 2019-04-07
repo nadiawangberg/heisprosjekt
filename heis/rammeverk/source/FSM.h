@@ -3,6 +3,7 @@
 
 #include "door.h"
 #include "elev.h"
+#include "door.h"
 #include "order.h"
 #include "liftMovement.h"
 #include <stdlib.h>

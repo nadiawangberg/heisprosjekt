@@ -65,7 +65,7 @@ void StateMachine() {
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
-			//last_floor = curr_floor;
+			last_floor = curr_floor;
 		}
 
 		//elev_set_floor_indicator(last_floor);
@@ -77,9 +77,12 @@ void StateMachine() {
 				//noe
 				break;
 			case IDLE:
-			 	motor_dir_g=selectDir(floor,DIRN_STOP);
+				motor_dir_g=selectDir(last_floor,DIRN_STOP);
+
+			 	//printf("%i",motor_dir_g);
 				if(motor_dir_g!=DIRN_STOP){
 					curr_state=RUNNING;
+					//printf("%i",motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
 				}				
 				prev_state = IDLE;
@@ -105,16 +108,18 @@ void StateMachine() {
 				}
 
 				if (TimerDone()) {
-					DoorStateExit(curr_floor,motor_dir_g);
-					//printf("%i\n",motor_dir_g);
+					DoorStateExit(curr_floor);
+					motor_dir_g = selectDir(last_floor, motor_dir_g);
+					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
+						//printf("Vi burde ikke vaere her!!!\n");
 						curr_state = RUNNING;
 					}
 					else{
 						curr_state=IDLE;
 					}
 					// transitionFromDoorOpen();
-					DoorStateExit(curr_floor,motor_dir_g);
+					//DoorStateExit(curr_floor,motor_dir_g);
 					break;
 				}
 
