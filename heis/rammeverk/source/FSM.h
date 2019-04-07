@@ -11,8 +11,8 @@
 #include <time.h>
 
 // global variables
-static elev_motor_direction_t motor_dir_g = DIRN_STOP;
-static order_direction_t order_dir = DOWN;
+static elev_motor_direction_t motor_dir_g = DIRN_STOP; // will ONLY be DIRN_STOP for idle and emergency stop state, will remain its direction  for door open state
+//static order_direction_t order_dir = DOWN;
 static Floor curr_floor = UNDEFINED;
 static Floor last_floor = UNDEFINED;
 

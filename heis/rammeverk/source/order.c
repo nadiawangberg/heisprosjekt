@@ -28,17 +28,18 @@ void addOrder(Floor floor, order_direction_t order_dir){
 	}
 	else if (order_dir==COMMAND){ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
-		/*
+		
 		if(motor_dir_g==DIRN_UP){
 			order_priority_up[floor]=1;
 		}
 		else if (motor_dir_g==DIRN_DOWN){ // Dir = down
 			order_priority_down[floor]=1;
 		}
-		else if (motor_dir_g==DIRN_STOP)
-			order_priority_up[floor]=1; // NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+		else if (motor_dir_g==DIRN_STOP) {
+			// NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+			order_priority_up[floor]=1;
 		}
-		*/
+		
 	}
 }	
 
@@ -105,15 +106,14 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 		return DIRN_UP;
 	}
 	else if (current_direction==DIRN_UP){
-		// orders above me? (prioritizes continuing in same direction)
-		for(int i=floor+1;i<=3;i+=1){
-			if(order_priority_up[i]){
+		for(int i=floor+1;i<=3;i+=1){ 
+			if(order_priority_up[i]){ // if there are orders in order_up ABOVE you
 				return DIRN_UP;
 			}
 		}
 		 // orders below me?
 		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){
+			if(order_priority_down[i]){ // if there are orders in order_down BELOW you
 				return DIRN_DOWN;
 			}
 		}
@@ -136,33 +136,30 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	}
 	// IN EMERGENCY STOP / IN IDLE
 	else if (current_direction == DIRN_STOP && !orderListsEmpty()) {
-		//gjøre noe for å begynne å kjøre igjen når lista ikke er tom
-
-		printf("Dir : stop, list is not empty");
-		// ABOVE ME
-		for(int i=floor+1;i<=3;i+=1){ // orders above me? (prioritizes continuing in same direction)
+		//gjøre noe for å begynne å kjøre igjen, feks hvis lista ikke er tom
+		for(int i=0;i<=floor;i+=1){
 			if(order_priority_up[i] || order_priority_down[i]){
-				return DIRN_UP;
+				return DIRN_DOWN;
 			}
 		}
-		// BELOW ME
-		return DIRN_DOWN;
+		return DIRN_UP;
+	}
+
+
+	if (orderListsEmpty()) {
+		return DIRN_STOP; // if BOTH order lists empty, return dirn_stop (this is idle state)
 	}
 
 	else if (orderListsEmpty()) {
 		return DIRN_STOP; // IDLE STATE!!
 	}
 
-	else if (order_priority_up[3] || order_priority_down[3]) {
-		return DIRN_UP;
-	}
+	// DIRN_UP og STATE = running
+	printf("state: %d", curr_state);
+	printf("current_direction: %d", current_direction);
+	printf("ERROR, CODE SHOULD NEVER BE HERE, UNDEFINED");
 
-	else if (order_priority_up[0] || order_priority_down[0]) {
-		return DIRN_DOWN;
-	}
-
-	printf("UNDEFINED STATE, CODE SHOULD NOT BE HERE!!");
-	return current_direction; // if BOTH order lists empty, return dirn_stop
+	return DIRN_STOP;
 }
 
 
