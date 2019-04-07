@@ -17,7 +17,6 @@ int main() {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
-    positionInit();
     StateMachineInit();
 
     // Code is STUCK in this func atm

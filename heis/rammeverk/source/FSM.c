@@ -26,7 +26,11 @@ void PrintState(State state) {
 void StateMachineInit() {
 	// for testing for now
 	//positionInit();
+	motor_dir_g = DIRN_DOWN;
+	positionInit();
     curr_state = RUNNING;
+    motor_dir_g = selectDir(curr_floor, motor_dir_g);
+    printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
 }
 
@@ -57,18 +61,10 @@ void StateMachine() {
 		// gjør generelle ting unless visse krav
 
 		checkForOrders(); // checks if any buttons pressed, adds to order list
-
 		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
-			motor_dir_g = selectDir(curr_floor, motor_dir_g);
-			if (motor_dir_g == DIRN_STOP) {
-				printf("motor_dir_g is DIRN_STOP");
-			}
-			elev_set_floor_indicator(curr_floor);
-			//removeOrders(curr_floor);
-			last_floor = curr_floor;
-
+			//last_floor = curr_floor;
 		}
 
 		//elev_set_floor_indicator(last_floor);
@@ -83,15 +79,16 @@ void StateMachine() {
 				prev_state = IDLE;
 				break;
 			case RUNNING:
-				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
+				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, and there is an order here  			
         			curr_state = DOOR_OPEN;
         			removeOrders(curr_floor);
-        			
+        			elev_set_stop_lamp(0);
+
         			//motor_dir_g = DIRN_UP;
         			prev_state = RUNNING;
         			break;
     			}
-
+    			elev_set_stop_lamp(1);
 				elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
 				prev_state = RUNNING;
 				break;
@@ -103,7 +100,7 @@ void StateMachine() {
 				if (TimerDone()) {
 					curr_state = RUNNING;
 					// transitionFromDoorOpen();
-					DoorStateExit();
+					DoorStateExit(curr_floor,motor_dir_g);
 					break;
 				}
 

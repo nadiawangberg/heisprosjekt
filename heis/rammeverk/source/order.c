@@ -136,7 +136,17 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	}
 
 
-	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop (this is idle state)
+	if (orderListsEmpty()) {
+		return DIRN_STOP; // if BOTH order lists empty, return dirn_stop (this is idle state)
+	}
+
+
+	// DIRN_UP og STATE = running
+	printf("state: %d", curr_state);
+	printf("current_direction: %d", current_direction);
+	printf("ERROR, CODE SHOULD NEVER BE HERE, UNDEFINED");
+
+	return DIRN_STOP;
 }
 		/*motor_dir_g doesnt change
 		else if (orders in the other direction)
@@ -156,7 +166,6 @@ int orderListsEmpty() {
 		if (order_priority_up[i] || order_priority_down[i]){
 			return 0;
 		}
-
 	}
 	return 1; 
 }

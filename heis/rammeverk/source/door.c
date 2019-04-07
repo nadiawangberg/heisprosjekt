@@ -1,10 +1,6 @@
 
 #include "door.h"
 
-#include "elev.h"
-#include <stdio.h>
-#include <unistd.h>
-
 
 void DoorStateInit() {
 	elev_set_motor_direction(DIRN_STOP);
@@ -13,9 +9,10 @@ void DoorStateInit() {
 }
 
 
-void DoorStateExit() {
+void DoorStateExit(Floor curr_floor,elev_motor_direction_t motor_dir_g) {
 	elev_set_door_open_lamp(0);
 	ResetTimer();
+	motor_dir_g = selectDir(curr_floor, motor_dir_g);
 }
 
 void ResetTimer() {
