@@ -70,6 +70,7 @@ void StateMachine() {
 
 		//elev_set_floor_indicator(last_floor);
 		//printOrders();
+		//PrintState(curr_state);
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -82,7 +83,7 @@ void StateMachine() {
 					elev_set_motor_direction(motor_dir_g);
 				}				
 				prev_state = IDLE;
-				PrintState(curr_state);
+				//PrintState(curr_state);
 				break;
 			case RUNNING:
 				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, and there is an order here  			
@@ -105,6 +106,7 @@ void StateMachine() {
 
 				if (TimerDone()) {
 					DoorStateExit(curr_floor,motor_dir_g);
+					//printf("%i\n",motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
 						curr_state = RUNNING;
 					}

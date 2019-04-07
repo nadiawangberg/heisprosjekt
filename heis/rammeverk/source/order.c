@@ -99,7 +99,7 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 
 elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
 	// if (more orders in the current direction) 
-	if(floor==FOURTH){
+	/*if(floor==FOURTH){
 		return DIRN_DOWN;
 	}
 	else if(floor==FIRST){
@@ -159,7 +159,44 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 	printf("current_direction: %d", current_direction);
 	printf("ERROR, CODE SHOULD NEVER BE HERE, UNDEFINED");
 
-	return DIRN_STOP;
+	return DIRN_STOP;*/
+	switch(current_direction){
+		case DIRN_UP:
+			for(int i=floor+1;i<4;i+=1){
+				if(order_priority_up[i]||order_priority_down[i]){ // sjekker om det er flere bestillinger å ta oppover
+					return DIRN_UP;
+				}
+			}
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i]||order_priority_down[i]){ //sjekker bestillinger under etter sjekket bestillinger over, dermed blir bestilling over prioritert
+					return DIRN_DOWN;
+				}
+			}
+			return DIRN_STOP;
+		case DIRN_DOWN:
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i]||order_priority_down[i]){ //motsatt av casen med dirn_up
+					return DIRN_DOWN;
+				}
+			}
+			for(int i=floor+1;i<4;i+=1){
+				if(order_priority_up[i]||order_priority_down[i]){
+					return DIRN_UP;
+				}
+			}                                                                                                                                                 
+		case DIRN_STOP: //fra idle
+			for(int i=floor+1;i<4;i+=1){ 
+				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					return DIRN_UP;
+				}
+			}
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					return DIRN_DOWN;
+				}
+			}
+			return DIRN_STOP;
+		}
 }
 
 
