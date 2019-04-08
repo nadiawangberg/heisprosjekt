@@ -1,4 +1,5 @@
 #include "FSM.h"
+#include "stop.h"
 
 
 void PrintState(State state) {
@@ -16,7 +17,7 @@ void PrintState(State state) {
 		case DOOR_OPEN:
 			printf("DoorOpen state");
 			break;
-		case STOP:
+		case EMERGENCYSTOP:
 			printf("EmergencyStop state");		
 			break;
 		return;
@@ -73,6 +74,9 @@ void StateMachine() {
 		//elev_set_floor_indicator(last_floor);
 		//printOrders();
 		//PrintState(curr_state);
+		if(elev_get_stop_signal()){
+			curr_state=EMERGENCYSTOP;
+		}
 		switch(curr_state) {
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
@@ -101,8 +105,8 @@ void StateMachine() {
         			prev_state = RUNNING;
         			break;
     			}
-    			elev_set_stop_lamp(1);
-				//elev_set_motor_direction(motor_dir_g); // motor_dir_g, DIRN_UP
+
+				
 				prev_state = RUNNING;
 				break;
 			case DOOR_OPEN:
@@ -129,8 +133,17 @@ void StateMachine() {
 
 				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
 				break;
-			case STOP:
-				// noe
+			case EMERGENCYSTOP:
+				emergencyStopInit();
+				while(elev_get_stop_signal());
+				emergencyStopExit();
+				if (prev_state==DOOR_OPEN){
+					curr_state=DOOR_OPEN;
+				}
+				else{
+					curr_state=IDLE;
+				}
+				prev_state=EMERGENCYSTOP;
 				break;
 		}
 	}
