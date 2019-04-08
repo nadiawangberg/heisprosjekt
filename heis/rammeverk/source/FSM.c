@@ -68,6 +68,8 @@ void StateMachine() {
 			last_floor = curr_floor;
 		}
 
+		elev_set_floor_indicator(last_floor);
+		//removeOrders(last_floor);
 		//elev_set_floor_indicator(last_floor);
 		//printOrders();
 		//PrintState(curr_state);
@@ -89,9 +91,10 @@ void StateMachine() {
 				//PrintState(curr_state);
 				break;
 			case RUNNING:
-				if (curr_floor != UNDEFINED && isOrderInFloor(curr_floor)) { // we're in a floor, stop     			
+				//printOrders();
+				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // we're in a floor, stop     			
         			curr_state = DOOR_OPEN;
-        			removeOrders(curr_floor);
+        			//removeOrders(last_floor);
         			//elev_set_stop_lamp(0);
 
         			//motor_dir_g = DIRN_UP;
@@ -104,11 +107,12 @@ void StateMachine() {
 				break;
 			case DOOR_OPEN:
 				if (prev_state != curr_state) { // just transitioned to door open
+					removeOrders(last_floor);
 					DoorStateInit(); // timer started
 				}
 
 				if (TimerDone()) {
-					DoorStateExit(curr_floor);
+					DoorStateExit(last_floor);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){

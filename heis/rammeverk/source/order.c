@@ -188,7 +188,7 @@ int shouldLiftstop(Floor floor) {
 
 int isOrderInFloor(Floor floor) {
 	if (floor != UNDEFINED) {
-		return (order_priority_up[floor] || order_priority_up[floor]);
+		return (order_priority_up[floor] || order_priority_down[floor]);
 	}
 	else {
 		return 0;
