@@ -92,7 +92,10 @@ void StateMachine() {
 					curr_state=RUNNING;
 					//printf("%i",motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
-				}				
+				}
+				else if(!orderListsEmpty()){
+					curr_state=DOOR_OPEN;
+				}
 				prev_state = IDLE;
 				//PrintState(curr_state);
 				break;
