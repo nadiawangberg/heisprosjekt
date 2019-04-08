@@ -24,9 +24,6 @@ void PrintState(State state) {
 }
 
 void StateMachineInit() {
-	// for testing for now
-	//positionInit();
-	//motor_dir_g = DIRN_DOWN;
 	positionInit();
     curr_state = IDLE;
     motor_dir_g = DIRN_STOP;
@@ -36,7 +33,6 @@ void StateMachineInit() {
 }
 
 void transitionFromDoorOpen() {
-
 	/* prepartion for more states
 	if (prev_state == EMERGENCYSTOP)
 		curr_state = EMERGENCYSTOP;
@@ -54,8 +50,6 @@ void transitionFromDoorOpen() {
 
 void StateMachine() {
 	while(1) {
-		// PrintState(state);
-
 		// gjør generelle ting unless visse krav
 
 		checkForOrders(); // checks if any buttons pressed, adds to order list
@@ -70,11 +64,8 @@ void StateMachine() {
 		}
 
 		elev_set_floor_indicator(last_floor);
-		//removeOrders(last_floor);
-		//elev_set_floor_indicator(last_floor);
 		printOrders();
 		//PrintState(curr_state);
-		
 		//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
 		
 
@@ -84,8 +75,6 @@ void StateMachine() {
 		switch(curr_state) {
 
 			case INIT:
-				//printf("In INIT state, nothing here atm\n");
-				//noe
 				break;
 
 			case IDLE:
@@ -96,13 +85,11 @@ void StateMachine() {
 					curr_state=RUNNING;
 					//printf("%i",motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
-					prev_state = IDLE;
-					break;
+
 				}
-				if(!orderListsEmpty()){ // if there are any orders
+				else if(motor_dir_g==DIRN_STOP && !orderListsEmpty()){ // if there are any orders
 					curr_state=DOOR_OPEN;
-					prev_state = IDLE;
-					break;
+
 				}
 				prev_state = IDLE;
 				break;
@@ -124,15 +111,10 @@ void StateMachine() {
 				}
 
 				if (TimerDone()) {
-					printf("TIMER DONE\n");
-					printf("motor_dir_g: %i\n",motor_dir_g );
 					DoorStateExit(last_floor);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
-					printf("motor_dir_g: %i\n",motor_dir_g );
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
-						//in_between_floor = getInbetweenFloor(curr_floor, last_floor, motor_dir_g);
-						//printf("in_between_floor: %.6f",in_between_floor);
 						curr_state = RUNNING;
 					}
 					else{
