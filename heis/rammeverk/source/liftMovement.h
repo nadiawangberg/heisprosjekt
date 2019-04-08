@@ -7,9 +7,9 @@
 typedef enum tag_floor {
 	UNDEFINED = -1,
 	FIRST = 0,
-	SECOND,
-	THIRD,
-	FOURTH 
+	SECOND = 1,
+	THIRD = 2,
+	FOURTH = 3 
 } Floor;
 
 static Floor floor = UNDEFINED;

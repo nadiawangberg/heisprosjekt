@@ -1,9 +1,5 @@
 #include "FSM.h"
-#include "liftMovement.h"
-#include "order.h"
-#include "stop.h"
 
-int been_in_2nd_floor = 0;
 
 void PrintState(State state) {
 
@@ -28,21 +24,15 @@ void PrintState(State state) {
 }
 
 void StateMachineInit() {
-	// for testing for now
-	//positionInit();
-    curr_state = RUNNING;
+	positionInit();
+    curr_state = IDLE;
+    motor_dir_g = DIRN_STOP;
+    //motor_dir_g = selectDir(curr_floor, motor_dir_g);
+    printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
-
-    //elev_set_motor_direction(DIRN_STOP); // kjører opp
-    //curr_state = IDLE;
-
 }
 
 void transitionFromDoorOpen() {
-	// ALL STATE TRANSITIONS FROM DOOR OPEN
-	curr_state = RUNNING;
-	prev_state = DOOR_OPEN;
-
 	/* prepartion for more states
 	if (prev_state == EMERGENCYSTOP)
 		curr_state = EMERGENCYSTOP;
@@ -60,57 +50,83 @@ void transitionFromDoorOpen() {
 
 void StateMachine() {
 	while(1) {
-		// PrintState(state);
-
 		// gjør generelle ting unless visse krav
 
-		checkForOrders();
+		checkForOrders(); // checks if any buttons pressed, adds to order list
+		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
+		if (curr_floor != UNDEFINED) { // we're in a floor
+			elev_set_floor_indicator(curr_floor);
+			last_floor = curr_floor;
+			in_between_floor = curr_floor;
+		}
+		else {
+			in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
+		}
+
+		elev_set_floor_indicator(last_floor);
 		printOrders();
+		//PrintState(curr_state);
+		//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
+		
+
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
 		}
-		//PrintState(curr_state);
 		switch(curr_state) {
+
 			case INIT:
-				//printf("In INIT state, nothing here atm\n");
-				//noe
 				break;
+
 			case IDLE:
-				// noe
+				motor_dir_g=selectDir(last_floor,DIRN_STOP);
+				//printf("%i\n",motor_dir_g );
+			 	//printf("%i",motor_dir_g);
+				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
+					curr_state=RUNNING;
+					//printf("%i",motor_dir_g);
+					elev_set_motor_direction(motor_dir_g);
+
+				}
+				else if(motor_dir_g==DIRN_STOP && !orderListsEmpty()){ // if there are any orders
+					curr_state=DOOR_OPEN;
+
+				}
+				prev_state = IDLE;
 				break;
+
 			case RUNNING:
-				if (elev_get_floor_sensor_signal() == 2 && !been_in_2nd_floor) { // third floor
-        			
-
-        			removeOrders(THIRD);
-        			
+				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
         			curr_state = DOOR_OPEN;
-        			elev_set_stop_lamp(0);
-
         			prev_state = RUNNING;
-        			been_in_2nd_floor = 1;
         			break;
     			}
-
-				elev_set_motor_direction(DIRN_UP);
-				//elev_set_stop_lamp(1); // for debugging (REMEMBER TO REMOVE)
-				
+    			PrintState(curr_state);
 				prev_state = RUNNING;
 				break;
+
 			case DOOR_OPEN:
 				if (prev_state != curr_state) { // just transitioned to door open
+					removeOrders(last_floor);
 					DoorStateInit(); // timer started
 				}
 
 				if (TimerDone()) {
-					curr_state = RUNNING;
-					// transitionFromDoorOpen();
-					DoorStateExit();
+					DoorStateExit(last_floor);
+					motor_dir_g = selectDir(last_floor, motor_dir_g);
+					elev_set_motor_direction(motor_dir_g);
+					if(motor_dir_g!=DIRN_STOP){
+						curr_state = RUNNING;
+					}
+					else{
+						curr_state=IDLE;
+					}
+					prev_state = DOOR_OPEN;
 					break;
 				}
 
 				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
 				break;
+
 			case EMERGENCYSTOP:
 				emergencyStopInit();
 				while(elev_get_stop_signal());

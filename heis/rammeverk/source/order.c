@@ -4,7 +4,7 @@
 #include "FSM.h"
 #include <stdio.h>
 
-void printOrders(){ //tested
+void printOrders(){
 	printf("order_priority_up: ");
 	for (int i=0;i<4;i+=1){
 			printf("%d ",order_priority_up[i]);
@@ -17,7 +17,7 @@ void printOrders(){ //tested
 
 
 
-void addOrder(Floor floor, elev_order_direction_t order_dir){
+void addOrder(Floor floor, order_direction_t order_dir){
 	if(order_dir==UP){ // person wanting to go up
 		order_priority_up[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 1);	
@@ -28,6 +28,20 @@ void addOrder(Floor floor, elev_order_direction_t order_dir){
 	}
 	else if (order_dir==COMMAND){ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
+		if(floor>curr_floor){
+			order_priority_up[floor]=1;
+		}
+		else if(floor<curr_floor){
+			order_priority_down[floor]=1;
+		}
+		else{//floor==curr_floor
+			if (motor_dir_g==DIRN_UP){
+				order_priority_up[floor]=1;
+			}
+			else {//motor_dir_g==dirn_down || motor_dir_g==dirn_stop
+			order_priority_down[floor]=1;
+			}
+		}
 		/*
 		if(motor_dir_g==DIRN_UP){
 			order_priority_up[floor]=1;
@@ -35,8 +49,9 @@ void addOrder(Floor floor, elev_order_direction_t order_dir){
 		else if (motor_dir_g==DIRN_DOWN){ // Dir = down
 			order_priority_down[floor]=1;
 		}
-		else if (motor_dir_g==DIRN_STOP)
-			order_priority_up[floor]=1; // NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+		else if (motor_dir_g==DIRN_STOP) {
+			// NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
+			order_priority_up[floor]=1;
 		}
 		*/
 	}
@@ -97,51 +112,59 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 
 
 elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
-	// if (more orders in the current direction) 
-	if(floor==FOURTH){
-		return DIRN_DOWN;
-	}
-	else if(floor==FIRST){
-		return DIRN_UP;
-	}
-	else if (current_direction==DIRN_UP){
-		for(int i=floor+1;i<=3;i+=1){
-			if(order_priority_up[i]){
-				return DIRN_UP;
+
+	switch(current_direction){
+		case DIRN_UP:
+			for(int i=floor+1;i<4;i+=1){
+				if(order_priority_up[i]||order_priority_down[i]){ // sjekker om det er flere bestillinger å ta oppover
+					return DIRN_UP;
+				}
 			}
-		}
-		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){
-				return DIRN_DOWN;
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i]||order_priority_down[i]){ //sjekker bestillinger under etter sjekket bestillinger over, dermed blir bestilling over prioritert
+					return DIRN_DOWN;
+				}
 			}
-		}
-	}
-	else if(current_direction==DIRN_DOWN){
-		for(int i=floor-1;i>=0;i-=1){
-			if(order_priority_down[i]){
-				return DIRN_DOWN;
+			return DIRN_STOP;
+		case DIRN_DOWN:
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i]||order_priority_down[i]){ //motsatt av casen med dirn_up
+					return DIRN_DOWN;
+				}
 			}
-		}
-		for(int i=floor+1;i<=3;i+=1){
-			if(order_priority_up[i]){
-				return DIRN_UP;
+			for(int i=floor+1;i<4;i+=1){
+				if(order_priority_up[i]||order_priority_down[i]){
+					return DIRN_UP;
+				}
+			}  
+			return DIRN_STOP;                                                                                                                                              
+		case DIRN_STOP: //fra idle
+			for(int i=floor+1;i<4;i+=1){ 
+				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					return DIRN_UP;
+				}
 			}
+			for(int i=floor-1;i>=0;i-=1){
+				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
+					return DIRN_DOWN;
+				}
+			}
+			return DIRN_STOP;
 		}
-	}
-	return DIRN_STOP; // if BOTH order lists empty, return dirn_stop
 }
-		/*motor_dir_g doesnt change
-		else if (orders in the other direction)
-			motor_dir_g is other direction
-		else  
-			direction = stop*/
-	
-
-
-
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
 	// return direction;
+
+int orderListsEmpty() {
+	for(int i=0; i<4; i+=1){
+		if (order_priority_up[i] || order_priority_down[i]){
+			return 0;
+		}
+	}
+	return 1; 
+}
+
 
 void removeAllOrders(){
 	for(int i=0;i<4;i+=1){
@@ -158,6 +181,53 @@ void removeAllOrders(){
 		}
 	}
 }
+
+
+int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir_g) {
+	switch(floor){
+		case(FIRST):
+		case(FOURTH):
+			return order_priority_down[floor] || order_priority_up[floor];
+		case(SECOND):
+		case(THIRD):
+			if(motor_dir_g==DIRN_UP){
+				return order_priority_up[floor];
+			}
+			else{ //motor_dir_g==dirn_down
+				return order_priority_down[floor];
+			}
+		case(UNDEFINED):
+			return 0;
+	}
+	return 0;
+ }
+
+int isOrderInFloor(Floor floor) {
+	if (floor != UNDEFINED) {
+		return (order_priority_up[floor] || order_priority_down[floor]);
+	}
+	else {
+		return 0;
+	}
+}
+
+float getInbetweenFloor(Floor floor, elev_motor_direction_t motor_dir_g) {
+	
+	if (motor_dir_g == DIRN_UP) {
+			return floor+0.5;
+		}
+	else if (motor_dir_g == DIRN_DOWN) {
+			return floor-0.5;
+		}
+	else {
+		printf("ERROR");
+		printf("floor: %d", floor);
+		printf("dir: %d", motor_dir_g);
+		return -1;
+	}
+
+}
+
 
 // run EVERY time in FSM
 // can change state of system, and change direction
