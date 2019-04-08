@@ -5,6 +5,7 @@
 #include "elev.h"
 #include "door.h"
 #include "order.h"
+#include "stop.h"
 #include "liftMovement.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,6 +17,7 @@ static elev_motor_direction_t motor_dir_g = DIRN_STOP; // will ONLY be DIRN_STOP
 //static order_direction_t order_dir = DOWN;
 static Floor curr_floor = UNDEFINED;
 static Floor last_floor = UNDEFINED;
+static float in_between_floor = -1;
 
 typedef enum tag_state {
 	INIT = 0,

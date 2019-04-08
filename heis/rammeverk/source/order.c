@@ -169,22 +169,24 @@ void removeAllOrders(){
 }
 
 
-int shouldLiftstop(Floor floor) {
-	if (floor != UNDEFINED){
-		if(floor==FIRST || floor==FOURTH){
-			return 1;
-		}
-		else if(motor_dir_g==DIRN_UP)
-		{
-			return order_priority_up[floor];
-		}
-		else if(motor_dir_g==DIRN_DOWN)
-		{
-			return order_priority_down[floor];
-		}
-		}
+int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir_g) {
+	switch(floor){
+		case(FIRST):
+		case(FOURTH):
+			return order_priority_down[floor] || order_priority_up[floor];
+		case(SECOND):
+		case(THIRD):
+			if(motor_dir_g==DIRN_UP){
+				return order_priority_up[floor];
+			}
+			else{ //motor_dir_g==dirn_down
+				return order_priority_down[floor];
+			}
+		case(UNDEFINED):
+			return 0;
+	}
 	return 0;
-}
+ }
 
 int isOrderInFloor(Floor floor) {
 	if (floor != UNDEFINED) {
@@ -193,6 +195,25 @@ int isOrderInFloor(Floor floor) {
 	else {
 		return 0;
 	}
+}
+
+float getInbetweenFloor(Floor curr_floor, Floor last_floor, elev_motor_direction_t motor_dir_g) {
+	if(curr_floor == UNDEFINED) {
+		if (motor_dir_g == DIRN_UP) {
+			return floor+0.5;
+		}
+		else if (motor_dir_g == DIRN_DOWN) {
+			return floor-0.5;
+		}
+		else {
+			printf("ERROR");
+			printf("floor: %d", floor);
+			printf("dir: %d", motor_dir_g);
+			return -1;
+		}
+
+	}
+	return floor;
 }
 
 

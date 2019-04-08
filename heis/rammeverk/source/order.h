@@ -76,11 +76,14 @@ The number of lights that are on are the amount of orders that.
 
 int isOrderInFloor(Floor floor);
 
-int shouldLiftstop(Floor floor);
+int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir_g);
 /* 
   @return 1 if there are orders, 0 if there are no orders.
 */
 
 int orderListsEmpty();
+
+float getInbetweenFloor(Floor curr_floor, Floor last_floor, elev_motor_direction_t motor_dir_g);
+
 
 #endif

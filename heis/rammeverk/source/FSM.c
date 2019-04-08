@@ -1,5 +1,4 @@
 #include "FSM.h"
-#include "stop.h"
 
 
 void PrintState(State state) {
@@ -37,9 +36,6 @@ void StateMachineInit() {
 }
 
 void transitionFromDoorOpen() {
-	// ALL STATE TRANSITIONS FROM DOOR OPEN
-	curr_state = RUNNING;
-	prev_state = DOOR_OPEN;
 
 	/* prepartion for more states
 	if (prev_state == EMERGENCYSTOP)
@@ -74,14 +70,20 @@ void StateMachine() {
 		//elev_set_floor_indicator(last_floor);
 		//printOrders();
 		//PrintState(curr_state);
+		if (in_between_floor != -1) {
+		    printf("in_between_floor: %.6f",in_between_floor);
+		}
+
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
 		}
 		switch(curr_state) {
+
 			case INIT:
 				//printf("In INIT state, nothing here atm\n");
 				//noe
 				break;
+
 			case IDLE:
 				motor_dir_g=selectDir(last_floor,DIRN_STOP);
 
@@ -94,21 +96,17 @@ void StateMachine() {
 				prev_state = IDLE;
 				//PrintState(curr_state);
 				break;
-			case RUNNING:
-				//printOrders();
-				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // we're in a floor, stop     			
-        			curr_state = DOOR_OPEN;
-        			//removeOrders(last_floor);
-        			//elev_set_stop_lamp(0);
 
-        			//motor_dir_g = DIRN_UP;
+			case RUNNING:
+				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+        			curr_state = DOOR_OPEN;
         			prev_state = RUNNING;
         			break;
     			}
 
-				
 				prev_state = RUNNING;
 				break;
+
 			case DOOR_OPEN:
 				if (prev_state != curr_state) { // just transitioned to door open
 					removeOrders(last_floor);
@@ -120,19 +118,20 @@ void StateMachine() {
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
-						//printf("Vi burde ikke vaere her!!!\n");
+						in_between_floor = getInbetweenFloor(curr_floor, last_floor, motor_dir_g);
+						//printf("in_between_floor: %.6f",in_between_floor);
 						curr_state = RUNNING;
 					}
 					else{
 						curr_state=IDLE;
 					}
-					// transitionFromDoorOpen();
-					//DoorStateExit(curr_floor,motor_dir_g);
+					prev_state = DOOR_OPEN;
 					break;
 				}
 
 				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
 				break;
+
 			case EMERGENCYSTOP:
 				emergencyStopInit();
 				while(elev_get_stop_signal());
