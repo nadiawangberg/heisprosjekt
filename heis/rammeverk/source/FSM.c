@@ -67,7 +67,7 @@ void StateMachine() {
 		printOrders();
 		//PrintState(curr_state);
 		//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
-		
+		printOrders();
 
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;

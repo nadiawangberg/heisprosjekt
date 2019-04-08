@@ -28,20 +28,10 @@ void addOrder(Floor floor, order_direction_t order_dir){
 	}
 	else if (order_dir==COMMAND){ // aka person in lift pressed button (1-4) 
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
-		if(floor>curr_floor){
-			order_priority_up[floor]=1;
+		order_priority_down[floor]=1;
+		order_priority_up[floor]=1;
 		}
-		else if(floor<curr_floor){
-			order_priority_down[floor]=1;
-		}
-		else{//floor==curr_floor
-			if (motor_dir_g==DIRN_UP){
-				order_priority_up[floor]=1;
-			}
-			else {//motor_dir_g==dirn_down || motor_dir_g==dirn_stop
-			order_priority_down[floor]=1;
-			}
-		}
+	}
 		/*
 		if(motor_dir_g==DIRN_UP){
 			order_priority_up[floor]=1;
@@ -54,8 +44,8 @@ void addOrder(Floor floor, order_direction_t order_dir){
 			order_priority_up[floor]=1;
 		}
 		*/
-	}
-}	
+	
+	
 
 
 // removes all orders given a floor
