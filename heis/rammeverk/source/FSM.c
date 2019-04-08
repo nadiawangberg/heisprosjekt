@@ -95,7 +95,7 @@ void StateMachine() {
 				break;
 
 			case RUNNING:
-				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+				if (curr_floor != UNDEFINED && shouldLiftStop(last_floor,motor_dir_g)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
         			curr_state = DOOR_OPEN;
         			prev_state = RUNNING;
         			break;
