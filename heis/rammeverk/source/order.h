@@ -83,7 +83,7 @@ int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir_g);
 
 int orderListsEmpty();
 
-float getInbetweenFloor(Floor curr_floor, Floor last_floor, elev_motor_direction_t motor_dir_g);
+float getInbetweenFloor(Floor floor, elev_motor_direction_t motor_dir_g);
 
 
 #endif

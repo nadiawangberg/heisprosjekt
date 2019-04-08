@@ -197,23 +197,21 @@ int isOrderInFloor(Floor floor) {
 	}
 }
 
-float getInbetweenFloor(Floor curr_floor, Floor last_floor, elev_motor_direction_t motor_dir_g) {
-	if(curr_floor == UNDEFINED) {
-		if (motor_dir_g == DIRN_UP) {
+float getInbetweenFloor(Floor floor, elev_motor_direction_t motor_dir_g) {
+	
+	if (motor_dir_g == DIRN_UP) {
 			return floor+0.5;
 		}
-		else if (motor_dir_g == DIRN_DOWN) {
+	else if (motor_dir_g == DIRN_DOWN) {
 			return floor-0.5;
 		}
-		else {
-			printf("ERROR");
-			printf("floor: %d", floor);
-			printf("dir: %d", motor_dir_g);
-			return -1;
-		}
-
+	else {
+		printf("ERROR");
+		printf("floor: %d", floor);
+		printf("dir: %d", motor_dir_g);
+		return -1;
 	}
-	return floor;
+
 }
 
 

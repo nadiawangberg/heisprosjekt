@@ -63,16 +63,20 @@ void StateMachine() {
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			last_floor = curr_floor;
+			in_between_floor = curr_floor;
+		}
+		else {
+			in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 		}
 
 		elev_set_floor_indicator(last_floor);
 		//removeOrders(last_floor);
 		//elev_set_floor_indicator(last_floor);
-		//printOrders();
+		printOrders();
 		//PrintState(curr_state);
-		if (in_between_floor != -1) {
-		    printf("in_between_floor: %.6f",in_between_floor);
-		}
+		
+		//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
+		
 
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
@@ -86,18 +90,21 @@ void StateMachine() {
 
 			case IDLE:
 				motor_dir_g=selectDir(last_floor,DIRN_STOP);
-
+				//printf("%i\n",motor_dir_g );
 			 	//printf("%i",motor_dir_g);
-				if(motor_dir_g!=DIRN_STOP){
+				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
 					curr_state=RUNNING;
 					//printf("%i",motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
+					prev_state = IDLE;
+					break;
 				}
-				else if(!orderListsEmpty()){
+				if(!orderListsEmpty()){ // if there are any orders
 					curr_state=DOOR_OPEN;
+					prev_state = IDLE;
+					break;
 				}
 				prev_state = IDLE;
-				//PrintState(curr_state);
 				break;
 
 			case RUNNING:
@@ -106,7 +113,7 @@ void StateMachine() {
         			prev_state = RUNNING;
         			break;
     			}
-
+    			PrintState(curr_state);
 				prev_state = RUNNING;
 				break;
 
@@ -117,11 +124,14 @@ void StateMachine() {
 				}
 
 				if (TimerDone()) {
+					printf("TIMER DONE\n");
+					printf("motor_dir_g: %i\n",motor_dir_g );
 					DoorStateExit(last_floor);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
+					printf("motor_dir_g: %i\n",motor_dir_g );
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
-						in_between_floor = getInbetweenFloor(curr_floor, last_floor, motor_dir_g);
+						//in_between_floor = getInbetweenFloor(curr_floor, last_floor, motor_dir_g);
 						//printf("in_between_floor: %.6f",in_between_floor);
 						curr_state = RUNNING;
 					}
