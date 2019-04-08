@@ -27,7 +27,6 @@ void StateMachineInit() {
 	positionInit();
     curr_state = IDLE;
     motor_dir_g = DIRN_STOP;
-    //motor_dir_g = selectDir(curr_floor, motor_dir_g);
     printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
 }
@@ -78,7 +77,7 @@ void StateMachine() {
 				break;
 
 			case IDLE:
-				motor_dir_g=selectDir(last_floor,DIRN_STOP);
+				motor_dir_g=selectDir(in_between_floor,DIRN_STOP);
 				//printf("%i\n",motor_dir_g );
 			 	//printf("%i",motor_dir_g);
 				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
@@ -112,6 +111,7 @@ void StateMachine() {
 
 				if (TimerDone()) {
 					DoorStateExit(last_floor);
+					//in_between_floor = last_floor;
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
