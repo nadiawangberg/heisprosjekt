@@ -144,9 +144,9 @@ elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t c
 		case DIRN_STOP: //fra idle (inbetween_floor could be 0.5, 1.5, 2.5)
 
 			// CHECK FOR SPECIAL CASE S8
-			//if ((order_priority_up[floor] || order_priority_down[floor]) && inbetween_floor != floor) {
-			//	return DIRN_DOWN;
-			//}
+			if ((order_priority_up[floor] || order_priority_down[floor]) && inbetween_floor != floor) {
+				return DIRN_DOWN;
+			}
 			// DONE S8
 
 			for(int i=floor+1;i<4;i+=1){ 
