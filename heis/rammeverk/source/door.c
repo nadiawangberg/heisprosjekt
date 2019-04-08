@@ -25,6 +25,5 @@ void StartTimer() {
 int TimerDone() {
 	difference = clock() - before;
   	msec = difference * 1000 / CLOCKS_PER_SEC;
-  	//printf("difference: %d \n", msec);
   	return (msec >= trigger); // returns 0 or 1
 }

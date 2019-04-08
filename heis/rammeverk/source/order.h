@@ -53,7 +53,7 @@ void printOrders();
   Selects which direction the elevator should move.
   @return a elev_motor_direction_t which can be DIRN_DOWN, DIRN_STOP or DIRN_UP.
 */
-elev_motor_direction_t selectDir(Floor floor,elev_motor_direction_t current_direction); //
+elev_motor_direction_t selectDir(Floor floor,elev_motor_direction_t current_direction, int emergency_stopped); //
 /**
   Removes all orders. 
   @return a elev_motor_direction_t which can be DIRN_DOWN, DIRN_STOP or DIRN_UP.

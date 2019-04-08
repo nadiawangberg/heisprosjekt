@@ -54,8 +54,6 @@ void transitionFromDoorOpen() {
 
 void StateMachine() {
 	while(1) {
-		// PrintState(state);
-
 		// gjør generelle ting unless visse krav
 
 		checkForOrders(); // checks if any buttons pressed, adds to order list
@@ -80,8 +78,6 @@ void StateMachine() {
 		switch(curr_state) {
 
 			case INIT:
-				//printf("In INIT state, nothing here atm\n");
-				//noe
 				break;
 
 			case IDLE:
