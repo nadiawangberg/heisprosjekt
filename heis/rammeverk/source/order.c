@@ -111,8 +111,15 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 }
 
 
-elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
+elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction, float inbetween_floor) { //Add edge case. Add case where pick up order under elev going up.
 
+	// if 
+	if (inbetween_floor == 0.5 || inbetween_floor == 1.5 || inbetween_floor == 2.5) {
+		
+	}
+
+	else { //inbetween_floor is an int in this else
+	int floor = (int)inbetween_floor;
 	switch(current_direction){
 		case DIRN_UP:
 			for(int i=floor+1;i<4;i+=1){
@@ -150,7 +157,8 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 				}
 			}
 			return DIRN_STOP;
-		}
+	}
+	}	
 }
 	// looks at order lists
 	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)

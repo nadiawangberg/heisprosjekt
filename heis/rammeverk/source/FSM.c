@@ -135,6 +135,7 @@ void StateMachine() {
 				emergencyStopInit();
 				while(elev_get_stop_signal());
 				emergencyStopExit();
+				// select a direction
 				if (prev_state==DOOR_OPEN){
 					curr_state=DOOR_OPEN;
 				}
