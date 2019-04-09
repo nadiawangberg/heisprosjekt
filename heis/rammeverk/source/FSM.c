@@ -31,22 +31,6 @@ void StateMachineInit() {
     printf("DONE WITH STATE MACHINE INIT!!");
 }
 
-void transitionFromDoorOpen() {
-	/* prepartion for more states
-	if (prev_state == EMERGENCYSTOP)
-		curr_state = EMERGENCYSTOP;
-	else if (order_direction_g == DIRN_UP || order_direction_g == DIRN_DOWN) :
-		curr_state = RUNNING;
-		elev_set_door_open_lamp(0); // close doors 
-	else if (no orders) {
-		elev_set_door_open_lamp(0); // close doors 
-		curr_state = IDLE;
-		}
-
-	else if (no orders)
-	*/
-}
-
 void StateMachine() {
 	while(1) {
 		// gjør generelle ting unless visse krav
@@ -125,11 +109,11 @@ void StateMachine() {
 					in_between_floor=last_floor;
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					//removeOrders(last_floor);
-					DoorStateInit(); // timer started
+					init_door(); // timer started
 				}
 
-				if (TimerDone()) {
-					DoorStateExit(last_floor);
+				if (timerDone_door()) {
+					elev_set_door_open_lamp(0);
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					//in_between_floor=last_floor+0.5*motor_dir_g;
