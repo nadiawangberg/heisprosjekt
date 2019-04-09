@@ -79,6 +79,7 @@ void StateMachine() {
 
 			case IDLE:
 				motor_dir_g=selectDir(last_floor,DIRN_STOP);
+
 				//printf("%i\n",motor_dir_g );
 			 	//printf("%i",motor_dir_g);
 				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
@@ -105,8 +106,11 @@ void StateMachine() {
 				break;
 
 			case DOOR_OPEN:
+
+				removeOrders(last_floor); //bug fix for idle to door open 6 second bug
+
 				if (prev_state != curr_state) { // just transitioned to door open
-					removeOrders(last_floor);
+					//removeOrders(last_floor);
 					DoorStateInit(); // timer started
 				}
 
