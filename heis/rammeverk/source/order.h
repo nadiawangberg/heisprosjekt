@@ -3,86 +3,74 @@
 #define __INCLUDE_ORDER_H__
 #include "liftMovement.h"
 
-/*
-typedef Struct tag_order {
-	elev_motor_direction_t dir;
-	int priority;
-} Order;
-*/
-
-
-typedef enum tag_order_direction { 
+typedef enum tag_order_type { 
     DOWN = -1,
     COMMAND, // inside lift
     UP
-} order_direction_t;
-
-
-//int order_priority_in[4][2]={{0,0},{0,0},{0,0},{0,0}};
-//int order_priority_out[4][2]={{0,0},{0,0},{0,0},{0,0}};
+} order_type_t;
 
 // Not global, member variables for order
 static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
 static int order_priority_down[4]={0,0,0,0};
 
 /**
-  Add a order.
-  @param dir Which direction type to check. Can be DOWN, COMMAND or UP.
-  @param floor Which floor to add order. Must be 0-3.
-  @return void.
-*/
-void addOrder(Floor floor, order_direction_t order_dir); // dir = order_direction
-/**
-  Removes all order in the current floor that goes in the elevators direction.
-  @param floor Which floor to remove order in. Must be 0-3.
-  @return void.
-*/
-void removeOrders(Floor floor);
- //removes all orders in the right direction in the current floor
-/**
-  Checks for incoming orders and adds them into lists.
-  @return void.
-*/
-void checkForOrders(); 
-/**
   Prints our current pending orders.
-  @return void.
 */
 void printOrders();
+
+/**
+  Add an order to one/both of the order_priority lists
+  @param order_type Which order type we have. Can be DOWN (outside lift down button), COMMAND (inside lift any button) or UP (outside lift up button).
+  @param floor Which floor the lift is ordered to go to. Must be 0-3.
+*/
+void addOrder(Floor floor, order_type_t order_type); // dir = order_direction
+
+/**
+  Removes all order in inputed floor, and turns off corresponding order button lights
+  @param floor Which floor to remove order in. Must be 0-3.
+*/
+void removeOrders(Floor floor);
+
+/**
+  Checks for incoming orders and adds them to lists (by calling addOrder function)
+*/
+void checkForOrders(); 
+
 /**
   Selects which direction the elevator should move.
   @return a elev_motor_direction_t which can be DIRN_DOWN, DIRN_STOP or DIRN_UP.
 */
-elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t current_direction); //
+elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t current_direction);
+
 /**
   Removes all orders. 
-  @return a elev_motor_direction_t which can be DIRN_DOWN, DIRN_STOP or DIRN_UP.
 */
 void removeAllOrders(); //removes every order in every direction
+
+
 /**
-  Handling everything to do with orders in the FSM, recieves orders, changes lift direction, removes orders when done osv.
-  @return void.
+  @param floor Which floor to check for orders
+  @return 1 if there is an order i floor, 0 if there are none.
 */
-void orderManager();
-
-
-//idea #3: why not drop priority, it sucks either way.  
-
-/* new idea, may suck. Have a number of orders above current floor. 
-When we check to stop we just check the ligths lmao. 
-The number of lights that are on are the amount of orders that.
-*/
-
-
 int isOrderInFloor(Floor floor);
 
-int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir_g);
-/* 
-  @return 1 if there are orders, 0 if there are no orders.
+
+/**
+  @param floor The floor the lift should consider stopping in.
+  @param motor_dir The direction the lift is currently moving in.
+  @return 1 if the lift should stop, 0 if the lift shouldnt. 
 */
+int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir);
 
-int orderListsEmpty();
+/**
+  @return 1 if there are any orders, 0 if there are no orders.
+*/
+int areOrderListsEmpty();
 
+/**
+  allows lift to always know its position, even between floors
+  THIS FUNCTION ISNT EVEN USED ANYMORE!!
+*/
 float getInbetweenFloor(Floor floor, elev_motor_direction_t motor_dir_g);
 
 

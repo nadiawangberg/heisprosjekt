@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
-#include <stdio.h>
 #include "elev.h"
 #include "liftMovement.h"
 #include "order.h"
