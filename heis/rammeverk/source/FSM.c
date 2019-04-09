@@ -81,7 +81,7 @@ void StateMachine() {
 					elev_set_motor_direction(motor_dir_g);
 
 				}
-				else if(motor_dir_g==DIRN_STOP && !orderListsEmpty()){ // if there are any orders
+				else if(motor_dir_g==DIRN_STOP && !areOrderListsEmpty()){ // if there are any orders
 					curr_state=DOOR_OPEN;
 
 				}
