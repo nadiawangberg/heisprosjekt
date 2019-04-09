@@ -1,11 +1,10 @@
 #ifndef __INCLUDE_FSM_H__
 #define __INCLUDE_FSM_H__
 
-#include "door.h"
 #include "elev.h"
 #include "door.h"
 #include "order.h"
-#include "stop.h"
+#include "emergencystop.h"
 #include "liftMovement.h"
 #include <stdlib.h>
 #include <stdio.h>

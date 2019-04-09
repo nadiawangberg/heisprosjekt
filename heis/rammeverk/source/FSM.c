@@ -132,9 +132,9 @@ void StateMachine() {
 				break;
 
 			case EMERGENCYSTOP:
-				emergencyStopInit();
+				init_emergencystop();
 				while(elev_get_stop_signal());
-				emergencyStopExit();
+				elev_set_stop_lamp(0);
 				if (prev_state==DOOR_OPEN){
 					curr_state=DOOR_OPEN;
 				}
