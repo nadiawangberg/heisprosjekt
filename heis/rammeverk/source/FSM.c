@@ -56,7 +56,7 @@ void StateMachine() {
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			last_floor = curr_floor;
-			//in_between_floor = curr_floor;
+			in_between_floor = curr_floor;
 		}
 		else { // not in floor
 			if (motor_dir_g != DIRN_STOP) { // will only update in_between_floor from running (so maybe this should be moved somewhere else...)
@@ -67,14 +67,14 @@ void StateMachine() {
 		elev_set_floor_indicator(last_floor);
 		//printOrders();
 		//PrintState(curr_state);
-		if (in_between_floor != -1) {
+		/*if (in_between_floor != -1) {
 			printf("                    in_between_floor: %.6f                   \n",in_between_floor);
 		}
 		else {
 			printf("WAAAAAAA ERRORRRRRRRRRRRRRRRRR -1!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOO");
 		}
-
-		
+		*/
+		printOrders();
 
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
@@ -106,11 +106,11 @@ void StateMachine() {
 
 			case RUNNING:
 
-				if (in_between_floor==(int)in_between_floor) {
+				if (in_between_floor==(int)in_between_floor ) {
 					in_between_floor=last_floor+0.5*motor_dir_g;
 				}
 				
-				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+				if (curr_floor != UNDEFINED && shouldLiftStop(last_floor,motor_dir_g)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
         			curr_state = DOOR_OPEN;
         			prev_state = RUNNING;
         			break;
