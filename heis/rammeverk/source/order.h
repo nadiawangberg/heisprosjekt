@@ -68,6 +68,7 @@ int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir);
 int areOrderListsEmpty();
 
 /**
+  REMOVE THIS FUNCTION!!
   allows lift to always know its position, even between floors
   THIS FUNCTION ISNT EVEN USED ANYMORE!!
 */

@@ -4,6 +4,10 @@
 #include "elev.h"
 #include <stdio.h>
 
+
+/**
+  Enum with the discrete floors of the lift
+*/
 typedef enum tag_floor {
 	UNDEFINED = -1,
 	FIRST = 0,
@@ -16,8 +20,7 @@ static Floor floor = UNDEFINED;
 //Floor last_floor = UNDEFINED;
 
 /**
-  O1, O2, O3
-  Moves lift up until it reaches a floor. Sets current_floor.
+  Moves lift down until it reaches a floor.
 */
 Floor positionInit();
 
