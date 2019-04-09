@@ -147,10 +147,30 @@ int shouldLiftStop(Floor floor,elev_motor_direction_t motor_dir) {
 		case(SECOND):
 		case(THIRD):
 			if(motor_dir_g==DIRN_UP){
-				return order_priority_up[floor];
+				if(order_priority_up[floor]){
+					return 1;
+				}
+				else if(order_priority_down[floor]){
+					for(int i=floor+1;i<4;i+=1){
+						if(order_priority_down[i] || order_priority_up[i]){
+							return 0;
+						}
+					}
+					return 1;
+				}
 			}
-			else{ //motor_dir_g==dirn_down
-				return order_priority_down[floor];
+			else if(motor_dir_g==DIRN_DOWN){
+				if(order_priority_down[floor]){
+					return 1;
+				}
+				else if(order_priority_up[floor]){
+					for(int i=0;i<floor;i+=1){
+						if(order_priority_up[i] || order_priority_down[i]){
+							return 0;
+						}
+					}
+					return 1;
+				}
 			}
 		case(UNDEFINED):
 			return 0;

@@ -40,7 +40,7 @@ void StateMachine() {
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			last_floor = curr_floor;
-			//in_between_floor = curr_floor;
+			in_between_floor = curr_floor;
 		}
 		else { // not in floor
 			if (motor_dir_g != DIRN_STOP) { // will only update in_between_floor from running (so maybe this should be moved somewhere else...)
@@ -51,14 +51,14 @@ void StateMachine() {
 		elev_set_floor_indicator(last_floor);
 		//printOrders();
 		//PrintState(curr_state);
-		if (in_between_floor != -1) {
+		/*if (in_between_floor != -1) {
 			printf("                    in_between_floor: %.6f                   \n",in_between_floor);
 		}
 		else {
 			printf("WAAAAAAA ERRORRRRRRRRRRRRRRRRR -1!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOO");
 		}
-
-		
+		*/
+		printOrders();
 
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
@@ -90,11 +90,11 @@ void StateMachine() {
 
 			case RUNNING:
 
-				if (in_between_floor==(int)in_between_floor) {
+				if (in_between_floor==(int)in_between_floor ) {
 					in_between_floor=last_floor+0.5*motor_dir_g;
 				}
 				
-				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+				if (curr_floor != UNDEFINED && shouldLiftStop(last_floor,motor_dir_g)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
         			curr_state = DOOR_OPEN;
         			prev_state = RUNNING;
         			break;
@@ -104,17 +104,16 @@ void StateMachine() {
 				break;
 
 			case DOOR_OPEN:
-				removeOrders(last_floor);
-				if (prev_state != curr_state) { // just transitioned to door open
+				//removeOrders(last_floor);
+				if (prev_state != curr_state || isOrderInFloor(last_floor)) { // just transitioned to door open
 					in_between_floor=last_floor;
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					//removeOrders(last_floor);
 					init_door(); // timer started
 				}
-
+				removeOrders(last_floor);
 				if (timerDone_door()) {
 					elev_set_door_open_lamp(0);
-					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					//in_between_floor=last_floor+0.5*motor_dir_g;
 					elev_set_motor_direction(motor_dir_g);
@@ -132,10 +131,14 @@ void StateMachine() {
 				break;
 
 			case EMERGENCYSTOP:
+				if(curr_floor!=UNDEFINED){ //hvis vi er i en etasje
+					elev_set_door_open_lamp(1);
+				}
 				init_emergencystop();
+				if(prev_state)
 				while(elev_get_stop_signal());
-				elev_set_stop_lamp(0);
-				if (prev_state==DOOR_OPEN){
+				elev_set_stop_lamp(0);//emergencyStopExit();
+				if (curr_floor!=UNDEFINED){
 					curr_state=DOOR_OPEN;
 				}
 				else{
