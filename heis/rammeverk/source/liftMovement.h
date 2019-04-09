@@ -19,7 +19,7 @@ static Floor floor = UNDEFINED;
   O1, O2, O3
   Moves lift up until it reaches a floor. Sets current_floor.
 */
-void positionInit();
+Floor positionInit();
 
 
 /**

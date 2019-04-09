@@ -24,10 +24,9 @@ void PrintState(State state) {
 }
 
 void StateMachineInit() {
-	positionInit();
+	in_between_floor = positionInit();
     curr_state = IDLE;
     motor_dir_g = DIRN_STOP;
-    //motor_dir_g = selectDir(curr_floor, motor_dir_g);
     printf("%i",motor_dir_g);
     printf("DONE WITH STATE MACHINE INIT!!");
 }
@@ -57,17 +56,25 @@ void StateMachine() {
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			last_floor = curr_floor;
-			in_between_floor = curr_floor;
+			//in_between_floor = curr_floor;
 		}
-		else {
-			in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
+		else { // not in floor
+			if (motor_dir_g != DIRN_STOP) { // will only update in_between_floor from running (so maybe this should be moved somewhere else...)
+				//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
+			}
 		}
 
 		elev_set_floor_indicator(last_floor);
-		printOrders();
+		//printOrders();
 		//PrintState(curr_state);
-		//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
-		printOrders();
+		if (in_between_floor != -1) {
+			printf("                    in_between_floor: %.6f                   \n",in_between_floor);
+		}
+		else {
+			printf("WAAAAAAA ERRORRRRRRRRRRRRRRRRR -1!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOO");
+		}
+
+		
 
 		if(elev_get_stop_signal()){
 			curr_state=EMERGENCYSTOP;
@@ -78,11 +85,14 @@ void StateMachine() {
 				break;
 
 			case IDLE:
-				motor_dir_g=selectDir(last_floor,DIRN_STOP);
+				//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
+				
+				motor_dir_g=selectDir(in_between_floor,DIRN_STOP);
 				//printf("%i\n",motor_dir_g );
 			 	//printf("%i",motor_dir_g);
 				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
 					curr_state=RUNNING;
+					//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
 					//printf("%i",motor_dir_g);
 					elev_set_motor_direction(motor_dir_g);
 
@@ -95,24 +105,34 @@ void StateMachine() {
 				break;
 
 			case RUNNING:
-				if (curr_floor != UNDEFINED && shouldLiftStop(last_floor,motor_dir_g)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+
+				if (in_between_floor==(int)in_between_floor) {
+					in_between_floor=last_floor+0.5*motor_dir_g;
+				}
+				
+				if (curr_floor != UNDEFINED && isOrderInFloor(last_floor)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
         			curr_state = DOOR_OPEN;
         			prev_state = RUNNING;
         			break;
     			}
-    			PrintState(curr_state);
+    			//PrintState(curr_state);
 				prev_state = RUNNING;
 				break;
 
 			case DOOR_OPEN:
+				removeOrders(last_floor);
 				if (prev_state != curr_state) { // just transitioned to door open
-					removeOrders(last_floor);
+					in_between_floor=last_floor;
+					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
+					//removeOrders(last_floor);
 					DoorStateInit(); // timer started
 				}
 
 				if (TimerDone()) {
 					DoorStateExit(last_floor);
+					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
+					//in_between_floor=last_floor+0.5*motor_dir_g;
 					elev_set_motor_direction(motor_dir_g);
 					if(motor_dir_g!=DIRN_STOP){
 						curr_state = RUNNING;

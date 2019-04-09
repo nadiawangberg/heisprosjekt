@@ -100,8 +100,11 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 	}
 }
 
+// NB PASS PÅ AT TING IKKE
+elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
 
-elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
+
+	floor = (int)inbetween_floor;
 
 	switch(current_direction){
 		case DIRN_UP:
@@ -128,7 +131,14 @@ elev_motor_direction_t selectDir(Floor floor, elev_motor_direction_t current_dir
 				}
 			}  
 			return DIRN_STOP;                                                                                                                                              
-		case DIRN_STOP: //fra idle
+		case DIRN_STOP: //fra idle (inbetween_floor could be 0.5, 1.5, 2.5)
+
+			// CHECK FOR SPECIAL CASE S8
+			if ((order_priority_up[floor] || order_priority_down[floor]) && inbetween_floor != floor) {
+				return DIRN_DOWN;
+			}
+			// DONE S8
+
 			for(int i=floor+1;i<4;i+=1){ 
 				if(order_priority_up[i] || order_priority_down[i]){ //sjekker om vi har noen bestillinger over heisen
 					return DIRN_UP;
