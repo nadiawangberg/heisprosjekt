@@ -106,7 +106,7 @@ void StateMachine() {
 
 			case RUNNING:
 
-				if (prev_state != curr_state) {
+				if (in_between_floor==(int)in_between_floor) {
 					in_between_floor=last_floor+0.5*motor_dir_g;
 				}
 				
@@ -120,10 +120,11 @@ void StateMachine() {
 				break;
 
 			case DOOR_OPEN:
+				removeOrders(last_floor);
 				if (prev_state != curr_state) { // just transitioned to door open
 					in_between_floor=last_floor;
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
-					removeOrders(last_floor);
+					//removeOrders(last_floor);
 					DoorStateInit(); // timer started
 				}
 
