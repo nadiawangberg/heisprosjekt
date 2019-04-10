@@ -62,27 +62,6 @@ void removeOrders(Floor floor){
 	}
 
 	elev_set_button_lamp(BUTTON_COMMAND,floor, 0);
-	/* 
-	if(order_priority_up[floor]==1){
-		order_priority_up[floor]=0;
-		elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
-		if(order_priority_down[floor]==1){
-			order_priority_down[floor]=0;
-		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);}
-	}
-	*/
-	/* 
-	if(motor_dir_g==DIRN_UP){
-		if(order_priority_up[floor]==1)
-			order_priority_up[floor]=0;
-			elev_set_button_lamp(BUTTON_CALL_UP,floor, 0);
-	}
-	else if(order_priority_down[floor]==1){
-		order_priority_down[floor]=0;
-		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 0);
-	} 
-	elev_set_button_lamp(BUTTON_COMMAND,floor, 0);
-	*/
 }
 
 
@@ -230,50 +209,3 @@ int isOrderInFloor(Floor floor) {
 		return 0;
 	}
 }
-
-float getInbetweenFloor(Floor floor, elev_motor_direction_t motor_dir_g) {
-	
-	if (motor_dir_g == DIRN_UP) {
-			return floor+0.5;
-		}
-	else if (motor_dir_g == DIRN_DOWN) {
-			return floor-0.5;
-		}
-	else {
-		printf("ERROR");
-		printf("floor: %d", floor);
-		printf("dir: %d", motor_dir_g);
-		return -1;
-	}
-
-}
-
-
-// run EVERY time in FSM
-// can change state of system, and change direction
-
-/*void orderManager() {
-	
-	if (state == STOP){
-		removeAllOrders();
-		delete everything in list
-		fuck with lights?
-		osv
-		return;
-	}
-		
-
-	checkForOrders(); // this also adds new orders to the list
-
-	dir = selectDir();// This changes direction of lift movement
-	
-
-	// state transistions can be done from main while(1) instead
-	if (motor_dir_g != DIRN_STOP){ // can change names, remember consistensy!
-		state = RUNNING;
-	else{ 
-		state = IDLE;
-		}
-	}
-}
-*/

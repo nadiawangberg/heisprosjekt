@@ -60,7 +60,6 @@ void StateMachine() {
 		}
 		else { // not in floor
 			if (motor_dir_g != DIRN_STOP) { // will only update in_between_floor from running (so maybe this should be moved somewhere else...)
-				//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 			}
 		}
 
@@ -123,14 +122,12 @@ void StateMachine() {
 				//removeOrders(last_floor);
 				if (prev_state != curr_state || isOrderInFloor(last_floor)) { // just transitioned to door open
 					in_between_floor=last_floor;
-					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					//removeOrders(last_floor);
 					init_door(); // timer started
 				}
 				removeOrders(last_floor);
 				if (timerDone_door()) {
 					elev_set_door_open_lamp(0);
-					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					//in_between_floor=last_floor+0.5*motor_dir_g;
 					elev_set_motor_direction(motor_dir_g);
