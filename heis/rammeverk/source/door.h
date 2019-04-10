@@ -6,8 +6,6 @@
 #include <unistd.h>
 #include <time.h>
 #include "elev.h"
-#include "liftMovement.h"
-#include "order.h"
 
 
 static int msec = 0;

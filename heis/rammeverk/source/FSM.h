@@ -3,7 +3,6 @@
 
 #include "door.h"
 #include "elev.h"
-#include "door.h"
 #include "order.h"
 #include "stop.h"
 #include "liftMovement.h"
@@ -37,7 +36,5 @@ void StateMachineInit();
 void StateMachine();
 
 void PrintState(State state);
-
-void transitionFromDoorOpen();
 
 #endif // #ifndef __INCLUDE_FSM_H__

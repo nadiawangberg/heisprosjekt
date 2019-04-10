@@ -1,7 +1,7 @@
 //#include "liftMovement.h"
 #ifndef __INCLUDE_ORDER_H__
 #define __INCLUDE_ORDER_H__
-#include "liftMovement.h"
+#include "liftMovement.h" // JUST to get floors
 
 /*
 typedef Struct tag_order {
