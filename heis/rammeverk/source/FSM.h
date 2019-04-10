@@ -12,12 +12,11 @@
 #include <time.h>
 
 
-// global variables
-static elev_motor_direction_t motor_dir_g = DIRN_STOP; // will ONLY be DIRN_STOP for idle and emergency stop state, will remain its direction  for door open state
-//static order_direction_t order_dir = DOWN;
-static Floor curr_floor = UNDEFINED;
-static Floor last_floor = UNDEFINED;
-static float in_between_floor = -1;
+static elev_motor_direction_t motor_dir_m = DIRN_STOP;
+
+static Floor meas_floor_m = UNDEFINED;
+static Floor floor_m = UNDEFINED;
+static float position_m = -1;
 
 typedef enum tag_state {
 	IDLE = 1,

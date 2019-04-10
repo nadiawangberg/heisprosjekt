@@ -1,5 +1,4 @@
 #include "door.h"
-#include <stdio.h>
 
 void init_door() {
 	elev_set_motor_direction(DIRN_STOP);

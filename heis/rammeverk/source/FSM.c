@@ -24,31 +24,30 @@ void init_FSM() {
 	elev_set_motor_direction(DIRN_DOWN);
 	//find floor
 	do{
-		in_between_floor=elev_get_floor_sensor_signal();
-	} while(in_between_floor==UNDEFINED);
+		position_m=elev_get_floor_sensor_signal();
+	} while(position_m==UNDEFINED);
 	
-	elev_set_floor_indicator(in_between_floor); //set light
+	elev_set_floor_indicator(position_m); //set light
 	elev_set_motor_direction(DIRN_STOP);
 
     curr_state_m = IDLE;
-    motor_dir_g = DIRN_STOP;
+    motor_dir_m = DIRN_STOP;
 }
 
 
 void FSM() {
-	
+
 	while(1) {
 
 		checkForOrders_order(); // checks if any buttons pressed, adds to order list
-		curr_floor = elev_get_floor_sensor_signal();
+		meas_floor_m = elev_get_floor_sensor_signal();
 		
-		if (curr_floor != UNDEFINED) { // we're in a floor
-			elev_set_floor_indicator(curr_floor);
-			last_floor = curr_floor;
-			in_between_floor = curr_floor;
+		if (meas_floor_m != UNDEFINED) { // we're in a floor
+			elev_set_floor_indicator(meas_floor_m);
+			floor_m = meas_floor_m;
+			position_m = meas_floor_m;
 		}
 
-		elev_set_floor_indicator(last_floor);
 		print_order();
 
 		if(elev_get_stop_signal()){
@@ -56,13 +55,13 @@ void FSM() {
 		}
 		switch(curr_state_m) {
 			case IDLE:				
-				motor_dir_g=selectDir_order(in_between_floor,DIRN_STOP);
-				if(motor_dir_g!=DIRN_STOP){ // motor_dir = UP / DOWN
+				motor_dir_m=selectDir_order(position_m,DIRN_STOP);
+				if(motor_dir_m!=DIRN_STOP){ // motor_dir = UP / DOWN
 					curr_state_m=RUNNING;
-					elev_set_motor_direction(motor_dir_g);
+					elev_set_motor_direction(motor_dir_m);
 
 				}
-				else if(motor_dir_g==DIRN_STOP && !orderListsEmpty_order()){ // if there are any orders
+				else if(motor_dir_m==DIRN_STOP && !orderListsEmpty_order()){ // if there are any orders
 					curr_state_m=DOOR_OPEN;
 
 				}
@@ -70,12 +69,12 @@ void FSM() {
 				break;
 
 			case RUNNING:
-
-				if (in_between_floor==(int)in_between_floor ) {
-					in_between_floor=last_floor+0.5*motor_dir_g;
+				// position_m==(int)position_m
+				if (meas_floor_m != UNDEFINED) { // if we're in a floor
+					position_m=floor_m+0.5*motor_dir_m; // since we're going past a floor, update position
 				}
 				
-				if (curr_floor != UNDEFINED && shouldLiftStop_order(last_floor,motor_dir_g)) { // stop when you reach a floor with appropriate order, shouldLiftStop(last_floor, motor_dir_g)		
+				if (meas_floor_m != UNDEFINED && shouldLiftStop_order(floor_m,motor_dir_m)) { // stop when you reach a floor with appropriate order	
         			curr_state_m = DOOR_OPEN;
         			prev_state_m = RUNNING;
         			break;
@@ -84,18 +83,17 @@ void FSM() {
 				break;
 
 			case DOOR_OPEN:
-
-				if (prev_state_m != curr_state_m || isOrderInFloor_order(last_floor)) { // just transitioned to door open
-					in_between_floor=last_floor;
+				if (prev_state_m != curr_state_m || isOrderInFloor_order(floor_m)) { // if lift just transitioned to door_open and there are orders
+					position_m=floor_m;
 					init_door(); // timer started
 				}
-				removeOrders_order(last_floor);
+				removeOrders_order(floor_m);
 
 				if (timerDone_door()) {
 					elev_set_door_open_lamp(0);
-					motor_dir_g = selectDir_order(last_floor, motor_dir_g);
-					elev_set_motor_direction(motor_dir_g);
-					if(motor_dir_g!=DIRN_STOP){
+					motor_dir_m = selectDir_order(floor_m, motor_dir_m);
+					elev_set_motor_direction(motor_dir_m);
+					if(motor_dir_m!=DIRN_STOP){
 						curr_state_m = RUNNING;
 					}
 					else{
@@ -109,14 +107,13 @@ void FSM() {
 				break;
 
 			case EMERGENCYSTOP:
-				if(curr_floor!=UNDEFINED){ //hvis vi er i en etasje
+				if(meas_floor_m!=UNDEFINED){ //hvis vi er i en etasje
 					elev_set_door_open_lamp(1);
 				}
 				init_emergencystop();
-				if(prev_state_m)
 				while(elev_get_stop_signal());
 				elev_set_stop_lamp(0);
-				if (curr_floor!=UNDEFINED){
+				if (meas_floor_m!=UNDEFINED){
 					curr_state_m=DOOR_OPEN;
 				}
 				else{
