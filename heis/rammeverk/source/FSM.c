@@ -48,7 +48,7 @@ void FSM() {
 			position_m = meas_floor_m;
 		}
 
-		print_order();
+		//print_order();
 
 		if(elev_get_stop_signal()){
 			curr_state_m=EMERGENCYSTOP;

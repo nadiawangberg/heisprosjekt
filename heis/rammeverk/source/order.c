@@ -92,7 +92,7 @@ elev_motor_direction_t selectDir_order(float inbetween_floor, elev_motor_directi
 			return DIRN_STOP;                                                                                                                                              
 		case DIRN_STOP: //fra kun idle
 		
-			// CHECK FOR SPECIAL CASE S8
+			// to satisify CASE S8 (from kravspesifikasjon)
 			if ((order_up_m[floor] || order_down_m[floor]) && inbetween_floor != floor) {
 				return DIRN_DOWN;
 			}
@@ -144,35 +144,35 @@ int shouldLiftStop_order(Floor floor,elev_motor_direction_t motor_dir_g) {
 		case(FOURTH):
 			return order_down_m[floor] || order_up_m[floor]; // if order in 1. / 4. stop
 		case(SECOND):
-		case(THIRD):
+		case(THIRD): 
 			if(motor_dir_g==DIRN_UP){
-				if(order_up_m[floor]){
+				if(order_up_m[floor]){ // order in correct direction (up)
 					return 1;
 				}
-				else if(order_down_m[floor]){
-					for(int i=floor+1;i<4;i+=1){
-						if(order_down_m[i] || order_up_m[i]){
-							return 0;
+				else if(order_down_m[floor]){ //order in opposite direction (down)
+					for(int i=floor+1;i<4;i+=1){ 				
+						if(order_down_m[i] || order_up_m[i]){  //check if there are orders above
+							return 0; 						//orders above -> dont stop
 						}
 					}
-					return 1;
+					return 1; //no orders above -> stop
 				}
 			}
-			else if(motor_dir_g==DIRN_DOWN){
-				if(order_down_m[floor]){
+			else if(motor_dir_g==DIRN_DOWN){ 
+				if(order_down_m[floor]){ // order in correct direction (down)
 					return 1;
 				}
-				else if(order_up_m[floor]){
+				else if(order_up_m[floor]){ //order in opposite direction (down)
 					for(int i=0;i<floor;i+=1){
-						if(order_up_m[i] || order_down_m[i]){
-							return 0;
+						if(order_up_m[i] || order_down_m[i]){ //check if there are orders below
+							return 0;						//orders below ->dont stop
 						}
 					}
-					return 1;
+					return 1; //no orders below -> stop
 				}
 			}
 		case(UNDEFINED):
-			return 0;
+			return 0; //if we are not in a floor there are no orders to stop for.
 	}
 	return 0;
  }
