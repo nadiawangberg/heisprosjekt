@@ -12,6 +12,13 @@ static int trigger = 3000;
 static clock_t difference, before;
 
 /**
+* @file
+* @brief door module, handles door open functionality, 
+  ensures the door is opened for 3 seconds then closed again when taking an order.
+*/
+
+
+/**
 Initializes door state.
 Stops lift, sets door open light and starts 3sek door open timer.
 */

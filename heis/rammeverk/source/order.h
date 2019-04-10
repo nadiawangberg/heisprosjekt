@@ -6,6 +6,13 @@
 #include <stdio.h>
 
 /**
+* @file
+* @brief order module, stores the orders in two lists, checks for new orders, adds, removes and manages the orders by modifying these lists.
+*/
+
+
+
+/**
   Which order button type we have. Can be DOWN (outside lift down button), COMMAND (inside lift any button) or UP (outside lift up button).
 */
 typedef enum tag_order_type { 

@@ -6,11 +6,15 @@
 #include "order.h"
 #include "emergencystop.h"
 #include "floor.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <time.h>
 
+/**
+* @file
+* @brief Finite state machine, switches between the 4 states IDLE, RUNNING, DOOR_OPEN, EMERGENCYSTOP
+*/
 
 static elev_motor_direction_t motor_dir_m = DIRN_STOP;
 
