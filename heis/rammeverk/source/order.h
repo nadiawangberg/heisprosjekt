@@ -8,11 +8,11 @@
 /**
   Which order button type we have. Can be DOWN (outside lift down button), COMMAND (inside lift any button) or UP (outside lift up button).
 */
-typedef enum tag_order_direction { 
+typedef enum tag_order_type { 
     DOWN = -1,
     COMMAND,
     UP
-} order_direction_t;
+} order_type_t;
 
 
 static int order_up_m[4]={0,0,0,0};
@@ -28,7 +28,7 @@ void print_order();
   @param order_type Which order button type we have. Can be DOWN (outside lift down button), COMMAND (inside lift any button) or UP (outside lift up button).
   @param floor Which floor the lift is ordered to go to. Must be 0-3.
 */
-void addOrder_order(Floor floor, order_direction_t order_dir);
+void addOrder_order(Floor floor, order_type_t order_type);
 
 /**
   Removes all order in inputed floor, and turns off corresponding order button lights

@@ -16,7 +16,7 @@ int main() {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
-    StateMachineInit();
-    StateMachine();
+    init_FSM();
+    FSM();
     return 0;
 }

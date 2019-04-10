@@ -11,18 +11,6 @@
 
 #include <time.h>
 
-/*
-typedef enum tag_floor {
-	UNDEFINED = -1,
-	FIRST = 0,
-	SECOND = 1,
-	THIRD = 2,
-	FOURTH = 3 
-} Floor;
-
-static Floor floor = UNDEFINED;
-static Floor floor_TEST = UNDEFINED;
-*/
 
 // global variables
 static elev_motor_direction_t motor_dir_g = DIRN_STOP; // will ONLY be DIRN_STOP for idle and emergency stop state, will remain its direction  for door open state
@@ -32,21 +20,20 @@ static Floor last_floor = UNDEFINED;
 static float in_between_floor = -1;
 
 typedef enum tag_state {
-	INIT = 0,
-	IDLE,
+	IDLE = 1,
 	RUNNING,
 	DOOR_OPEN,
 	EMERGENCYSTOP
 } State;
 
-static State curr_state = INIT; // Global state variable
-static State prev_state = INIT;
+static State curr_state_m; // Global state variable
+static State prev_state_m;
 
 
-void StateMachineInit();
+void init_FSM();
 
-void StateMachine();
+void FSM();
 
-void PrintState(State state);
+void PrintState_FSM(State state);
 
 #endif // #ifndef __INCLUDE_FSM_H__

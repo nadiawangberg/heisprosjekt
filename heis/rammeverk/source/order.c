@@ -13,16 +13,16 @@ void print_order(){
 }
 
 
-void addOrder_order(Floor floor, order_direction_t order_dir){
-	if(order_dir==UP){
+void addOrder_order(Floor floor, order_type_t order_type){
+	if(order_type==UP){
 		order_up_m[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_UP,floor, 1);	
 	}
-	else if(order_dir==DOWN){
+	else if(order_type==DOWN){
 		order_down_m[floor]=1;
 		elev_set_button_lamp(BUTTON_CALL_DOWN,floor, 1);
 	}
-	else if (order_dir==COMMAND){
+	else if (order_type==COMMAND){
 		elev_set_button_lamp(BUTTON_COMMAND,floor, 1);
 		order_down_m[floor]=1;
 		order_up_m[floor]=1;
@@ -91,7 +91,7 @@ elev_motor_direction_t selectDir_order(float inbetween_floor, elev_motor_directi
 			}  
 			return DIRN_STOP;                                                                                                                                              
 		case DIRN_STOP: //fra kun idle
-
+		
 			// CHECK FOR SPECIAL CASE S8
 			if ((order_up_m[floor] || order_down_m[floor]) && inbetween_floor != floor) {
 				return DIRN_DOWN;
