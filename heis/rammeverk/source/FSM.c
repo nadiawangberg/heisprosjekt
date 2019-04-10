@@ -142,10 +142,10 @@ void StateMachine() {
 				if(curr_floor!=UNDEFINED){ //hvis vi er i en etasje
 					elev_set_door_open_lamp(1);
 				}
-				emergencyStopInit();
+				init_emergencystop();
 				if(prev_state)
 				while(elev_get_stop_signal());
-				emergencyStopExit();
+				elev_set_stop_lamp(0);
 				if (curr_floor!=UNDEFINED){
 					curr_state=DOOR_OPEN;
 				}
