@@ -1,7 +1,8 @@
 //#include "liftMovement.h"
 #ifndef __INCLUDE_ORDER_H__
 #define __INCLUDE_ORDER_H__
-#include "liftMovement.h" // JUST to get floors
+#include "floor.h" // JUST to get floors 
+#include "FSM.h"
 
 /*
 typedef Struct tag_order {
@@ -23,8 +24,7 @@ typedef enum tag_order_direction {
 
 // Not global, member variables for order
 static int order_priority_up[4]={0,0,0,0};//initalized as  zero vector
-static int order_priority_down[4]={0,0,0,0};
-
+static int order_priority_down[4]={0,0,0,0}; // ey
 /**
   Prints our current pending orders.
 */

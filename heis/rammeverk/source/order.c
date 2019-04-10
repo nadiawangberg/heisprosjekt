@@ -83,7 +83,7 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
 
 
-	floor = (int)inbetween_floor;
+	Floor floor = (int)inbetween_floor;
 
 	switch(current_direction){
 		case DIRN_UP:

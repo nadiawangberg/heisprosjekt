@@ -24,7 +24,17 @@ void PrintState(State state) {
 }
 
 void StateMachineInit() {
-	in_between_floor = positionInit();
+	elev_set_motor_direction(DIRN_DOWN);
+	//find floor
+	do{
+		in_between_floor=elev_get_floor_sensor_signal();
+	} while(in_between_floor==UNDEFINED);
+	
+	//last_floor=current_floor;
+	elev_set_floor_indicator(in_between_floor); //set light
+	elev_set_motor_direction(DIRN_STOP);
+	printf("DONE WITH INIT, BYE!");
+
     curr_state = IDLE;
     motor_dir_g = DIRN_STOP;
     printf("%i",motor_dir_g);
