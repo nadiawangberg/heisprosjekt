@@ -2,7 +2,6 @@
 #include "floor.h"
 #include "FSM.h"
 #include "door.h"
-//#include "order.h"
 #include <stdio.h>
 #include <time.h>
 
@@ -18,8 +17,6 @@ int main() {
         return 1;
     }
     StateMachineInit();
-
-    // Code is STUCK in this func atm
     StateMachine();
     return 0;
 }

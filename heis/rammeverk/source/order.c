@@ -32,18 +32,6 @@ void addOrder(Floor floor, order_direction_t order_dir){
 		order_priority_up[floor]=1;
 		}
 	}
-		/*
-		if(motor_dir_g==DIRN_UP){
-			order_priority_up[floor]=1;
-		}
-		else if (motor_dir_g==DIRN_DOWN){ // Dir = down
-			order_priority_down[floor]=1;
-		}
-		else if (motor_dir_g==DIRN_STOP) {
-			// NOOOOOOOOO FIIIIIIIIIIIIIXXXX!!!!
-			order_priority_up[floor]=1;
-		}
-		*/
 	
 	
 
@@ -79,7 +67,6 @@ void checkForOrders(){//feels if we have orders (button press), adds them to que
 	}
 }
 
-// NB PASS PÅ AT TING IKKE
 elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t current_direction) { //Add edge case. Add case where pick up order under elev going up.
 
 
@@ -131,9 +118,6 @@ elev_motor_direction_t selectDir(float inbetween_floor, elev_motor_direction_t c
 			return DIRN_STOP;
 		}
 }
-	// looks at order lists
-	// find the which direction to go in based on simplified lift algorithm (see stackoverflow)
-	// return direction;
 
 int orderListsEmpty() {
 	for(int i=0; i<4; i+=1){

@@ -25,40 +25,31 @@ void PrintState(State state) {
 
 void StateMachineInit() {
 	elev_set_motor_direction(DIRN_DOWN);
+
 	//find floor
 	do{
 		in_between_floor=elev_get_floor_sensor_signal();
 	} while(in_between_floor==UNDEFINED);
 	
-	//last_floor=current_floor;
 	elev_set_floor_indicator(in_between_floor); //set light
 	elev_set_motor_direction(DIRN_STOP);
-	printf("DONE WITH INIT, BYE!");
 
     curr_state = IDLE;
     motor_dir_g = DIRN_STOP;
-    printf("%i",motor_dir_g);
-    printf("DONE WITH STATE MACHINE INIT!!");
 }
 
 void StateMachine() {
 	while(1) {
-		// gjør generelle ting unless visse krav
 
 		checkForOrders(); // checks if any buttons pressed, adds to order list
-		curr_floor = elev_get_floor_sensor_signal(); // will be undefined most of the time
+		curr_floor = elev_get_floor_sensor_signal();
 		if (curr_floor != UNDEFINED) { // we're in a floor
 			elev_set_floor_indicator(curr_floor);
 			last_floor = curr_floor;
 			in_between_floor = curr_floor;
 		}
-		else { // not in floor
-			if (motor_dir_g != DIRN_STOP) { // will only update in_between_floor from running (so maybe this should be moved somewhere else...)
-			}
-		}
 
 		elev_set_floor_indicator(last_floor);
-		//printOrders();
 		//PrintState(curr_state);
 		/*if (in_between_floor != -1) {
 			printf("                    in_between_floor: %.6f                   \n",in_between_floor);
@@ -108,7 +99,6 @@ void StateMachine() {
         			prev_state = RUNNING;
         			break;
     			}
-    			//PrintState(curr_state);
 				prev_state = RUNNING;
 				break;
 
@@ -135,7 +125,7 @@ void StateMachine() {
 					break;
 				}
 
-				prev_state = DOOR_OPEN; // is it an issue to set prev_state = curr_state before EVERY break?
+				prev_state = DOOR_OPEN;
 				break;
 
 			case EMERGENCYSTOP:

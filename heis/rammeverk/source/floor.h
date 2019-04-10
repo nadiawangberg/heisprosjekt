@@ -4,7 +4,9 @@
 #include "elev.h"
 #include <stdio.h>
 
-
+/**
+  Enum with the discrete floors of the lift
+*/
 typedef enum tag_floor {
 	UNDEFINED = -1,
 	FIRST = 0,
