@@ -9,25 +9,22 @@
 #include "liftMovement.h"
 #include "order.h"
 
-//clock_t before = clock();
-//clock_t difference = clock() - before;
-//clock_t before = 0; 
-//clock_t difference = 0;
-//int msec = 0;
-
 
 static int msec = 0;
 static int trigger = 3000;
 static clock_t difference, before;
 
-void DoorStateInit();
+/**
+Initializes door state.
+Stops lift, sets door open light and starts 3sek door open timer.
+*/
+void init_door();
 
-void ResetTimer();
+/**
+Checks if timer is done for door open state, meaning that 3sek has passed.
+@return 0 if timer isnt done. 1 if timer is done.
+*/
+int timerDone_door();
 
-void StartTimer();
 
-int TimerDone();
-
-void DoorStateExit(Floor curr_floor);;
-
-#endif // #ifndef __INCLUDE_DRIVER_H__
+#endif // #ifndef __INCLUDE_DOOR_H__

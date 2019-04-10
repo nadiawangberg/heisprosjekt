@@ -125,11 +125,11 @@ void StateMachine() {
 					in_between_floor=last_floor;
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					//removeOrders(last_floor);
-					DoorStateInit(); // timer started
+					init_door(); // timer started
 				}
 				removeOrders(last_floor);
-				if (TimerDone()) {
-					DoorStateExit(last_floor);
+				if (timerDone_door()) {
+					elev_set_door_open_lamp(0);
 					//in_between_floor = getInbetweenFloor(last_floor, motor_dir_g);
 					motor_dir_g = selectDir(last_floor, motor_dir_g);
 					//in_between_floor=last_floor+0.5*motor_dir_g;
