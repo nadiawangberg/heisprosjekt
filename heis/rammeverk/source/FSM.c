@@ -67,7 +67,7 @@ void StateMachine() {
 			case INIT:
 				break;
 
-			case IDLE:
+			case IDLE: // test
 				//printf("                    in_between_floor: %.6f                   \n",in_between_floor);
 				
 				motor_dir_g=selectDir(in_between_floor,DIRN_STOP);
