@@ -1,0 +1,40 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>310</x><y>505</y><w>160</w><h>80</h></coordinates><panel_attributes>emergencystop
+--
+
+--
++init_emergencystop() </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>505</y><w>670</w><h>200</h></coordinates><panel_attributes>order
+--
+-order_up_m: float[4]
+- order_down_m: float[4]
+--
+- addOrder_order(floor: Floor, order_type: order_type_t)
++ removeOrders_order(floor: Floor)
++ checkForOrders_order()
++ selectDir_order(inbetween_floor: float, current_direction: elev_motor_direction_t) : elev_motor_direction_t
++ removeAllOrders_order(floor: Floor)
++ isOrderInFloor_order(floor: Floor) : Int
++ shouldLiftStop_order(floor: Floor, motor_dir_g: elev_motor_direction_t) : Int
++ areOrderListsEmpty_order() : Int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>120</x><y>505</y><w>160</w><h>80</h></coordinates><panel_attributes>door
+--
+- trigger: Int
+--
++init_door()
++timerDone_door() : Int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>695</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>575</y><w>150</w><h>270</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>130;250;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>575</y><w>300</w><h>270</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>280;250;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>195</y><w>210</w><h>30</h></coordinates><panel_attributes>I/O</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>285</y><w>670</w><h>560</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;540;10;500;650;500;650;140;330;140;330;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>265</y><w>210</w><h>30</h></coordinates><panel_attributes>Elev</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>285</y><w>40</w><h>240</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;220;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>285</y><w>200</w><h>240</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;220;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>285</y><w>180</w><h>240</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>160;220;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>825</y><w>210</w><h>90</h></coordinates><panel_attributes>Finite state machine
+--
++ position_m: Floor
++ floor_m: Floor
+--
++init_FSM()
++FSM()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>860</x><y>285</y><w>30</w><h>240</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;220;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>125</y><w>210</w><h>30</h></coordinates><panel_attributes>Channel</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>145</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>215</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>255</y><w>210</w><h>40</h></coordinates><panel_attributes>floor
+--
++Floor: enum
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
