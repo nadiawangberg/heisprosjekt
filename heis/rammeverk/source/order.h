@@ -78,6 +78,6 @@ int shouldLiftStop_order(Floor floor,elev_motor_direction_t motor_dir_g);
 /* 
   @return 1 if there are orders, 0 if there are no orders.
 */
-int orderListsEmpty_order();
+int areOrderListsEmpty_order();
 
 #endif

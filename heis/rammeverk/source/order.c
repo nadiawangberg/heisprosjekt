@@ -112,7 +112,7 @@ elev_motor_direction_t selectDir_order(float inbetween_floor, elev_motor_directi
 }
 
 
-int orderListsEmpty_order() {
+int areOrderListsEmpty_order() {
 	for(int i=0; i<4; i+=1){
 		if (order_up_m[i] || order_down_m[i]){
 			return 0;

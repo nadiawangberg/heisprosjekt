@@ -61,7 +61,7 @@ void FSM() {
 					elev_set_motor_direction(motor_dir_m);
 
 				}
-				else if(motor_dir_m==DIRN_STOP && !orderListsEmpty_order()){ // if there are any orders
+				else if(motor_dir_m==DIRN_STOP && !areOrderListsEmpty_order()){ // if there are any orders
 					curr_state_m=DOOR_OPEN;
 
 				}
