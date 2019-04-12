@@ -5,7 +5,13 @@
 #include <stdio.h>
 
 /**
-  @brief Enum with the discrete floors of the lift
+* @file
+* @brief floor module, containing the floor enum. 
+*/
+
+
+/**
+  Enum with the discrete floors of the lift, @c UNDEFINED, @c FIRST, @c SECOND, @c THIRD, @c FOURTH
 */
 typedef enum tag_floor {
 	UNDEFINED = -1,

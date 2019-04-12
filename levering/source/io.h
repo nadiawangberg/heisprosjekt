@@ -7,6 +7,10 @@
 #define __INCLUDE_IO_H__
 
 
+/**
+* @file
+* @brief IO module
+*/
 
 /**
   Initialize libComedi in "Sanntidssalen"
