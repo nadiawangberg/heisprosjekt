@@ -11,7 +11,7 @@
 
 
 /**
-Initializes emergency stop state.
+@brief Initializes emergency stop state.
 imediately stops lift, sets stop lamp, removes all orders
 */
 void init_emergencystop();

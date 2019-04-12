@@ -7,8 +7,7 @@
 
 /**
 * @file
-* @brief The main file, it does what
-* main files usually does
+* @brief The main file, initializes elev, fsm and then runs the fsm. 
 */
 int main() {
     // Initialize hardware
