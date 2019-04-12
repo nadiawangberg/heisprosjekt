@@ -18,12 +18,12 @@
 
 static elev_motor_direction_t motor_dir_m = DIRN_STOP;
 
-static Floor meas_floor_m = UNDEFINED;
-static Floor floor_m = UNDEFINED;
-static float position_m = -1;
+static Floor meas_floor_m = UNDEFINED; //the current sensor ouput
+static Floor floor_m = UNDEFINED;//last floor visited, cant be UNDEFINED
+static float position_m = -1; //the position of the elevator, position_n=1.5 means elevator is between second and third floor
 
 /**
-	The different states the FSM can be in. 
+	The states the finite state machine can be in, @c IDLE, @c RUNNING, @c DOOR_OPEN, @c EMERGENCYSTOP
 */
 typedef enum tag_state {
 	IDLE = 1,
@@ -36,7 +36,7 @@ static State curr_state_m;
 static State prev_state_m;
 
 /**
-  @brief Initializes state machine
+  Initializes state machine
   Initializes lift positition, 
   when position is initialized lift transitions to idle state. 
 */
@@ -44,7 +44,7 @@ void init_FSM();
 
 
 /**
-  @brief Runs the finite state machine.
+  Runs the finite state machine.
   There are 4 states, @c EMERGENCYSTOP, @c DOOR_OPEN, @c RUNNING and @c IDLE given by struct State. 
   Emergency stop state and door open state are described by their corresponding modules.
   Running state is moving the lift in the direction given by the order module. 
@@ -54,8 +54,8 @@ void init_FSM();
 void FSM();
 
 /**
-  @brief Prints state
-  @param @p state Which state to print
+  Prints state
+  @param state Which state to print
 */
 void PrintState_FSM(State state);
 

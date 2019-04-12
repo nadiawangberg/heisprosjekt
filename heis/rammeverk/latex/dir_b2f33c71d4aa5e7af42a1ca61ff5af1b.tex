@@ -3,5 +3,21 @@
 \subsection*{Files}
 \begin{DoxyCompactItemize}
 \item 
+file \hyperlink{channels_8h}{channels.\+h}
+\begin{DoxyCompactList}\small\item\em Channels. \end{DoxyCompactList}\item 
+file \hyperlink{door_8h}{door.\+h}
+\begin{DoxyCompactList}\small\item\em door module, handles door open functionality, ensures the door is opened for 3 seconds then closed again when taking an order. \end{DoxyCompactList}\item 
+file \hyperlink{elev_8h}{elev.\+h}
+\begin{DoxyCompactList}\small\item\em elev module. \end{DoxyCompactList}\item 
+file \hyperlink{emergencystop_8h}{emergencystop.\+h}
+\begin{DoxyCompactList}\small\item\em emergency stop module, makes sure lift stops immediately and all orders removed when the stop button is pressed. \end{DoxyCompactList}\item 
+file \hyperlink{floor_8h}{floor.\+h}
+\begin{DoxyCompactList}\small\item\em floor module, containing the floor enum. \end{DoxyCompactList}\item 
+file \hyperlink{FSM_8h}{F\+S\+M.\+h}
+\begin{DoxyCompactList}\small\item\em Finite state machine, switches between the 4 finite states {\ttfamily I\+D\+LE}, {\ttfamily R\+U\+N\+N\+I\+NG}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP}. \end{DoxyCompactList}\item 
+file \hyperlink{io_8h}{io.\+h}
+\begin{DoxyCompactList}\small\item\em IO module. \end{DoxyCompactList}\item 
 file \hyperlink{main_8c}{main.\+c}
-\begin{DoxyCompactList}\small\item\em The main file, it does what main files usually does. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The main file, initializes elev, fsm and then runs the fsm. \end{DoxyCompactList}\item 
+file \hyperlink{order_8h}{order.\+h}
+\begin{DoxyCompactList}\small\item\em Order module, stores the orders in two lists, checks for new orders, adds, removes and manages the orders by modifying these lists. \end{DoxyCompactList}\end{DoxyCompactItemize}

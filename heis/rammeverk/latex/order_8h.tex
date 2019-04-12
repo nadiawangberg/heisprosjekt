@@ -1,0 +1,221 @@
+\hypertarget{order_8h}{}\section{source/order.h File Reference}
+\label{order_8h}\index{source/order.\+h@{source/order.\+h}}
+
+
+Order module, stores the orders in two lists, checks for new orders, adds, removes and manages the orders by modifying these lists.  
+
+
+{\ttfamily \#include \char`\"{}floor.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}F\+S\+M.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+Include dependency graph for order.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{order_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{order_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{order_8h_af70dc8a017aa38cddee7df9ea775bff6}{tag\+\_\+order\+\_\+type} \hyperlink{order_8h_ad3b024fcdc8bf8e7a363526f7cbcef1c}{order\+\_\+type\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{order_8h_af70dc8a017aa38cddee7df9ea775bff6}{tag\+\_\+order\+\_\+type} \{ {\bfseries D\+O\+WN} = -\/1, 
+{\bfseries C\+O\+M\+M\+A\+ND}, 
+{\bfseries UP}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{order_8h_aa679e940f2ab0cdcd1734e9dd59edbbf}{print\+\_\+order} ()
+\item 
+void \hyperlink{order_8h_ae2a981fdadfc41c09b6d303dc7502d29}{add\+Order\+\_\+order} (\hyperlink{floor_8h_acb30631293fda569568eff832f5185b4}{Floor} floor, \hyperlink{order_8h_ad3b024fcdc8bf8e7a363526f7cbcef1c}{order\+\_\+type\+\_\+t} order\+\_\+type)
+\item 
+void \hyperlink{order_8h_a7871cdd48140558f433475a8a137311e}{remove\+Orders\+\_\+order} (\hyperlink{floor_8h_acb30631293fda569568eff832f5185b4}{Floor} floor)
+\item 
+void \hyperlink{order_8h_a725fed933533852b6c14974f96032ea0}{check\+For\+Orders\+\_\+order} ()
+\item 
+\hyperlink{elev_8h_a2256dfd58fecce253106f83fd2ed607f}{elev\+\_\+motor\+\_\+direction\+\_\+t} \hyperlink{order_8h_a971e3a926a57ef7a94bb166d76043e6d}{select\+Dir\+\_\+order} (float inbetween\+\_\+floor, \hyperlink{elev_8h_a2256dfd58fecce253106f83fd2ed607f}{elev\+\_\+motor\+\_\+direction\+\_\+t} current\+\_\+direction)
+\item 
+void \hyperlink{order_8h_a06ee0e7888023fb4619b7802bbcb40af}{remove\+All\+Orders\+\_\+order} ()
+\item 
+int \hyperlink{order_8h_af2019f6b13b136e72d60311f355c11f9}{is\+Order\+In\+Floor\+\_\+order} (\hyperlink{floor_8h_acb30631293fda569568eff832f5185b4}{Floor} floor)
+\item 
+int \hyperlink{order_8h_a14bf4c53b56a07e544dd4fde3979dbaf}{should\+Lift\+Stop\+\_\+order} (\hyperlink{floor_8h_acb30631293fda569568eff832f5185b4}{Floor} floor, \hyperlink{elev_8h_a2256dfd58fecce253106f83fd2ed607f}{elev\+\_\+motor\+\_\+direction\+\_\+t} motor\+\_\+dir\+\_\+g)
+\item 
+int \hyperlink{order_8h_a5341996224daa682d522c4a1b7f782d7}{are\+Order\+Lists\+Empty\+\_\+order} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Order module, stores the orders in two lists, checks for new orders, adds, removes and manages the orders by modifying these lists. 
+
+
+
+\subsection{Typedef Documentation}
+\index{order.\+h@{order.\+h}!order\+\_\+type\+\_\+t@{order\+\_\+type\+\_\+t}}
+\index{order\+\_\+type\+\_\+t@{order\+\_\+type\+\_\+t}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{order\+\_\+type\+\_\+t}{order_type_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf tag\+\_\+order\+\_\+type}  {\bf order\+\_\+type\+\_\+t}}\hypertarget{order_8h_ad3b024fcdc8bf8e7a363526f7cbcef1c}{}\label{order_8h_ad3b024fcdc8bf8e7a363526f7cbcef1c}
+Which order button type we have. Can be {\ttfamily D\+O\+WN} (outside lift down button), {\ttfamily C\+O\+M\+M\+A\+ND} (inside lift any button) or {\ttfamily UP} (outside lift up button). 
+
+\subsection{Enumeration Type Documentation}
+\index{order.\+h@{order.\+h}!tag\+\_\+order\+\_\+type@{tag\+\_\+order\+\_\+type}}
+\index{tag\+\_\+order\+\_\+type@{tag\+\_\+order\+\_\+type}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{tag\+\_\+order\+\_\+type}{tag_order_type}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf tag\+\_\+order\+\_\+type}}\hypertarget{order_8h_af70dc8a017aa38cddee7df9ea775bff6}{}\label{order_8h_af70dc8a017aa38cddee7df9ea775bff6}
+Which order button type we have. Can be {\ttfamily D\+O\+WN} (outside lift down button), {\ttfamily C\+O\+M\+M\+A\+ND} (inside lift any button) or {\ttfamily UP} (outside lift up button). 
+
+Definition at line 18 of file order.\+h.
+
+
+
+\subsection{Function Documentation}
+\index{order.\+h@{order.\+h}!add\+Order\+\_\+order@{add\+Order\+\_\+order}}
+\index{add\+Order\+\_\+order@{add\+Order\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{add\+Order\+\_\+order(\+Floor floor, order\+\_\+type\+\_\+t order\+\_\+type)}{addOrder_order(Floor floor, order_type_t order_type)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+Order\+\_\+order (
+\begin{DoxyParamCaption}
+\item[{{\bf Floor}}]{floor, }
+\item[{{\bf order\+\_\+type\+\_\+t}}]{order\+\_\+type}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_ae2a981fdadfc41c09b6d303dc7502d29}{}\label{order_8h_ae2a981fdadfc41c09b6d303dc7502d29}
+Add an order to one/both of the {\ttfamily order} lists 
+\begin{DoxyParams}{Parameters}
+{\em order\+\_\+type} & Which order button type we have. Can be {\ttfamily D\+O\+WN} (outside lift down button), {\ttfamily C\+O\+M\+M\+A\+ND} (inside lift any button) or {\ttfamily UP} (outside lift up button). \\
+\hline
+{\em floor} & Which floor the lift is ordered to go to. Must be 0-\/3. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 16 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!are\+Order\+Lists\+Empty\+\_\+order@{are\+Order\+Lists\+Empty\+\_\+order}}
+\index{are\+Order\+Lists\+Empty\+\_\+order@{are\+Order\+Lists\+Empty\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{are\+Order\+Lists\+Empty\+\_\+order()}{areOrderListsEmpty_order()}}]{\setlength{\rightskip}{0pt plus 5cm}int are\+Order\+Lists\+Empty\+\_\+order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a5341996224daa682d522c4a1b7f782d7}{}\label{order_8h_a5341996224daa682d522c4a1b7f782d7}
+Checks if order lists are empty \begin{DoxyReturn}{Returns}
+1 if there are any orders, 0 if there are no orders. 
+\end{DoxyReturn}
+
+
+Definition at line 115 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!check\+For\+Orders\+\_\+order@{check\+For\+Orders\+\_\+order}}
+\index{check\+For\+Orders\+\_\+order@{check\+For\+Orders\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{check\+For\+Orders\+\_\+order()}{checkForOrders_order()}}]{\setlength{\rightskip}{0pt plus 5cm}void check\+For\+Orders\+\_\+order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a725fed933533852b6c14974f96032ea0}{}\label{order_8h_a725fed933533852b6c14974f96032ea0}
+Checks for incoming orders and adds them to lists (by calling add\+Order function) 
+
+Definition at line 49 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!is\+Order\+In\+Floor\+\_\+order@{is\+Order\+In\+Floor\+\_\+order}}
+\index{is\+Order\+In\+Floor\+\_\+order@{is\+Order\+In\+Floor\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{is\+Order\+In\+Floor\+\_\+order(\+Floor floor)}{isOrderInFloor_order(Floor floor)}}]{\setlength{\rightskip}{0pt plus 5cm}int is\+Order\+In\+Floor\+\_\+order (
+\begin{DoxyParamCaption}
+\item[{{\bf Floor}}]{floor}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_af2019f6b13b136e72d60311f355c11f9}{}\label{order_8h_af2019f6b13b136e72d60311f355c11f9}
+
+\begin{DoxyParams}{Parameters}
+{\em floor} & Which floor to check for orders \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if there is an order i floor, 0 if there are none. 
+\end{DoxyReturn}
+
+
+Definition at line 180 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!print\+\_\+order@{print\+\_\+order}}
+\index{print\+\_\+order@{print\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{print\+\_\+order()}{print_order()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_aa679e940f2ab0cdcd1734e9dd59edbbf}{}\label{order_8h_aa679e940f2ab0cdcd1734e9dd59edbbf}
+Prints our current pending orders. 
+
+Definition at line 4 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!remove\+All\+Orders\+\_\+order@{remove\+All\+Orders\+\_\+order}}
+\index{remove\+All\+Orders\+\_\+order@{remove\+All\+Orders\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{remove\+All\+Orders\+\_\+order()}{removeAllOrders_order()}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+All\+Orders\+\_\+order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a06ee0e7888023fb4619b7802bbcb40af}{}\label{order_8h_a06ee0e7888023fb4619b7802bbcb40af}
+Removes all orders. 
+
+Definition at line 125 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!remove\+Orders\+\_\+order@{remove\+Orders\+\_\+order}}
+\index{remove\+Orders\+\_\+order@{remove\+Orders\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{remove\+Orders\+\_\+order(\+Floor floor)}{removeOrders_order(Floor floor)}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+Orders\+\_\+order (
+\begin{DoxyParamCaption}
+\item[{{\bf Floor}}]{floor}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a7871cdd48140558f433475a8a137311e}{}\label{order_8h_a7871cdd48140558f433475a8a137311e}
+Removes all order in inputed floor, and turns off corresponding order button lights 
+\begin{DoxyParams}{Parameters}
+{\em floor} & Which floor to remove order in. Must be 0-\/3. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 33 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!select\+Dir\+\_\+order@{select\+Dir\+\_\+order}}
+\index{select\+Dir\+\_\+order@{select\+Dir\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{select\+Dir\+\_\+order(float inbetween\+\_\+floor, elev\+\_\+motor\+\_\+direction\+\_\+t current\+\_\+direction)}{selectDir_order(float inbetween_floor, elev_motor_direction_t current_direction)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf elev\+\_\+motor\+\_\+direction\+\_\+t} select\+Dir\+\_\+order (
+\begin{DoxyParamCaption}
+\item[{float}]{inbetween\+\_\+floor, }
+\item[{{\bf elev\+\_\+motor\+\_\+direction\+\_\+t}}]{current\+\_\+direction}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a971e3a926a57ef7a94bb166d76043e6d}{}\label{order_8h_a971e3a926a57ef7a94bb166d76043e6d}
+Selects which direction the elevator should move. \begin{DoxyReturn}{Returns}
+a {\ttfamily elev\+\_\+motor\+\_\+direction\+\_\+t} which can be {\ttfamily D\+I\+R\+N\+\_\+\+D\+O\+WN}, {\ttfamily D\+I\+R\+N\+\_\+\+S\+T\+OP} or {\ttfamily D\+I\+R\+N\+\_\+\+UP}. 
+\end{DoxyReturn}
+
+
+Definition at line 64 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!should\+Lift\+Stop\+\_\+order@{should\+Lift\+Stop\+\_\+order}}
+\index{should\+Lift\+Stop\+\_\+order@{should\+Lift\+Stop\+\_\+order}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{should\+Lift\+Stop\+\_\+order(\+Floor floor, elev\+\_\+motor\+\_\+direction\+\_\+t motor\+\_\+dir\+\_\+g)}{shouldLiftStop_order(Floor floor, elev_motor_direction_t motor_dir_g)}}]{\setlength{\rightskip}{0pt plus 5cm}int should\+Lift\+Stop\+\_\+order (
+\begin{DoxyParamCaption}
+\item[{{\bf Floor}}]{floor, }
+\item[{{\bf elev\+\_\+motor\+\_\+direction\+\_\+t}}]{motor\+\_\+dir\+\_\+g}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a14bf4c53b56a07e544dd4fde3979dbaf}{}\label{order_8h_a14bf4c53b56a07e544dd4fde3979dbaf}
+
+\begin{DoxyParams}{Parameters}
+{\em floor} & The floor the lift should consider stopping in. \\
+\hline
+{\em motor\+\_\+dir} & The direction the lift is currently moving in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the lift should stop, 0 if the lift shouldnt stop. 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file order.\+c.
+

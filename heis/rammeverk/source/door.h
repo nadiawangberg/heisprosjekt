@@ -19,13 +19,13 @@ static clock_t difference, before;
 
 
 /**
-@brief Initializes door state.
+Initializes door state.
 Stops lift, sets door open light and starts 3sek door open timer.
 */
 void init_door();
 
 /**
-@brief Checks if timer is done for door open state, meaning that 3sek has passed.
+Checks if timer is done for door open state, meaning that 3 sec has passed since init_door() was called.
 @return 0 if timer isnt done. 1 if timer is done.
 */
 int timerDone_door();

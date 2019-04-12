@@ -1,0 +1,114 @@
+\hypertarget{FSM_8h}{}\section{source/\+F\+SM.h File Reference}
+\label{FSM_8h}\index{source/\+F\+S\+M.\+h@{source/\+F\+S\+M.\+h}}
+
+
+Finite state machine, switches between the 4 finite states {\ttfamily I\+D\+LE}, {\ttfamily R\+U\+N\+N\+I\+NG}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP}.  
+
+
+{\ttfamily \#include \char`\"{}door.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}order.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}emergencystop.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}floor.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+Include dependency graph for F\+S\+M.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{FSM_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{FSM_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{FSM_8h_a2af5bc6b2437cab9b3dd701744368abf}{tag\+\_\+state} \hyperlink{FSM_8h_ad278733225752463f5d2037c57b641d0}{State}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{FSM_8h_a2af5bc6b2437cab9b3dd701744368abf}{tag\+\_\+state} \{ {\bfseries I\+D\+LE} = 1, 
+{\bfseries R\+U\+N\+N\+I\+NG}, 
+{\bfseries D\+O\+O\+R\+\_\+\+O\+P\+EN}, 
+{\bfseries E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{FSM_8h_a005388f6e2fad37bb0824bf92193c865}{init\+\_\+\+F\+SM} ()
+\item 
+void \hyperlink{FSM_8h_a891efeca975caaa8422495176292f2aa}{F\+SM} ()
+\item 
+void \hyperlink{FSM_8h_ab35866a9fcf9da539677d0c3e910a245}{Print\+State\+\_\+\+F\+SM} (\hyperlink{FSM_8h_ad278733225752463f5d2037c57b641d0}{State} state)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Finite state machine, switches between the 4 finite states {\ttfamily I\+D\+LE}, {\ttfamily R\+U\+N\+N\+I\+NG}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP}. 
+
+
+
+\subsection{Typedef Documentation}
+\index{F\+S\+M.\+h@{F\+S\+M.\+h}!State@{State}}
+\index{State@{State}!F\+S\+M.\+h@{F\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{State}{State}}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf tag\+\_\+state}  {\bf State}}\hypertarget{FSM_8h_ad278733225752463f5d2037c57b641d0}{}\label{FSM_8h_ad278733225752463f5d2037c57b641d0}
+The states the finite state machine can be in, {\ttfamily I\+D\+LE}, {\ttfamily R\+U\+N\+N\+I\+NG}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP} 
+
+\subsection{Enumeration Type Documentation}
+\index{F\+S\+M.\+h@{F\+S\+M.\+h}!tag\+\_\+state@{tag\+\_\+state}}
+\index{tag\+\_\+state@{tag\+\_\+state}!F\+S\+M.\+h@{F\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{tag\+\_\+state}{tag_state}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf tag\+\_\+state}}\hypertarget{FSM_8h_a2af5bc6b2437cab9b3dd701744368abf}{}\label{FSM_8h_a2af5bc6b2437cab9b3dd701744368abf}
+The states the finite state machine can be in, {\ttfamily I\+D\+LE}, {\ttfamily R\+U\+N\+N\+I\+NG}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP} 
+
+Definition at line 28 of file F\+S\+M.\+h.
+
+
+
+\subsection{Function Documentation}
+\index{F\+S\+M.\+h@{F\+S\+M.\+h}!F\+SM@{F\+SM}}
+\index{F\+SM@{F\+SM}!F\+S\+M.\+h@{F\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{F\+S\+M()}{FSM()}}]{\setlength{\rightskip}{0pt plus 5cm}void F\+SM (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{FSM_8h_a891efeca975caaa8422495176292f2aa}{}\label{FSM_8h_a891efeca975caaa8422495176292f2aa}
+Runs the finite state machine. There are 4 states, {\ttfamily E\+M\+E\+R\+G\+E\+N\+C\+Y\+S\+T\+OP}, {\ttfamily D\+O\+O\+R\+\_\+\+O\+P\+EN}, {\ttfamily R\+U\+N\+N\+I\+NG} and {\ttfamily I\+D\+LE} given by struct State. Emergency stop state and door open state are described by their corresponding modules. Running state is moving the lift in the direction given by the order module. In idle the lift is waiting for orders with the doors closed. The transitions between states is shown and explained in the state diagram. 
+
+Definition at line 38 of file F\+S\+M.\+c.
+
+\index{F\+S\+M.\+h@{F\+S\+M.\+h}!init\+\_\+\+F\+SM@{init\+\_\+\+F\+SM}}
+\index{init\+\_\+\+F\+SM@{init\+\_\+\+F\+SM}!F\+S\+M.\+h@{F\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{init\+\_\+\+F\+S\+M()}{init_FSM()}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+\+F\+SM (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{FSM_8h_a005388f6e2fad37bb0824bf92193c865}{}\label{FSM_8h_a005388f6e2fad37bb0824bf92193c865}
+Initializes state machine Initializes lift positition, when position is initialized lift transitions to idle state. 
+
+Definition at line 23 of file F\+S\+M.\+c.
+
+\index{F\+S\+M.\+h@{F\+S\+M.\+h}!Print\+State\+\_\+\+F\+SM@{Print\+State\+\_\+\+F\+SM}}
+\index{Print\+State\+\_\+\+F\+SM@{Print\+State\+\_\+\+F\+SM}!F\+S\+M.\+h@{F\+S\+M.\+h}}
+\subsubsection[{\texorpdfstring{Print\+State\+\_\+\+F\+S\+M(\+State state)}{PrintState_FSM(State state)}}]{\setlength{\rightskip}{0pt plus 5cm}void Print\+State\+\_\+\+F\+SM (
+\begin{DoxyParamCaption}
+\item[{{\bf State}}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{FSM_8h_ab35866a9fcf9da539677d0c3e910a245}{}\label{FSM_8h_ab35866a9fcf9da539677d0c3e910a245}
+Prints state 
+\begin{DoxyParams}{Parameters}
+{\em state} & Which state to print \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 4 of file F\+S\+M.\+c.
+

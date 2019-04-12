@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Lift Project: source Directory Reference</title>
+<title>Lift project: source Directory Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lift Project
+   <div id="projectname">Lift project
    </div>
   </td>
  </tr>
@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -89,8 +90,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
 Files</h2></td></tr>
+<tr class="memitem:channels_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="channels_8h.html">channels.h</a> <a href="channels_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:channels_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channels. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:door_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="door_8h.html">door.h</a> <a href="door_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:door_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">door module, handles door open functionality, ensures the door is opened for 3 seconds then closed again when taking an order. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:elev_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="elev_8h.html">elev.h</a> <a href="elev_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:elev_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">elev module. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:emergencystop_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emergencystop_8h.html">emergencystop.h</a> <a href="emergencystop_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:emergencystop_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">emergency stop module, makes sure lift stops immediately and all orders removed when the stop button is pressed. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:floor_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="floor_8h.html">floor.h</a> <a href="floor_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:floor_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">floor module, containing the floor enum. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:FSM_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FSM_8h.html">FSM.h</a> <a href="FSM_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:FSM_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finite state machine, switches between the 4 finite states <code>IDLE</code>, <code>RUNNING</code>, <code>DOOR_OPEN</code>, <code>EMERGENCYSTOP</code>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:io_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_8h.html">io.h</a> <a href="io_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:io_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">IO module. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:main_8c"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html">main.c</a> <a href="main_8c_source.html">[code]</a></td></tr>
-<tr class="memdesc:main_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main file, it does what main files usually does. <br /></td></tr>
+<tr class="memdesc:main_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main file, initializes elev, fsm and then runs the fsm. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:order_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html">order.h</a> <a href="order_8h_source.html">[code]</a></td></tr>
+<tr class="memdesc:order_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Order module, stores the orders in two lists, checks for new orders, adds, removes and manages the orders by modifying these lists. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

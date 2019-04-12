@@ -4,6 +4,11 @@
 #ifndef __INCLUDE_DRIVER_CHANNELS_H__
 #define __INCLUDE_DRIVER_CHANNELS_H__
 
+/**
+* @file
+* @brief Channels module
+*/
+
 //in port 4
 #define PORT4               3
 #define OBSTRUCTION         (0x300+23)

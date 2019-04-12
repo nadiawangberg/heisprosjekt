@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Lift Project: source/main.c File Reference</title>
+<title>Lift project: source/main.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lift Project
+   <div id="projectname">Lift project
    </div>
   </td>
  </tr>
@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -89,12 +90,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>The main file, it does what main files usually does.  
+<p>The main file, initializes elev, fsm and then runs the fsm.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;elev.h&quot;</code><br />
-<code>#include &quot;liftMovement.h&quot;</code><br />
-<code>#include &quot;FSM.h&quot;</code><br />
-<code>#include &quot;door.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="elev_8h_source.html">elev.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="floor_8h_source.html">floor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FSM_8h_source.html">FSM.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="door_8h_source.html">door.h</a>&quot;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -102,12 +103,12 @@ Include dependency graph for main.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c__incl.png" border="0" usemap="#source_2main_8c" alt=""/></div>
 <map name="source_2main_8c" id="source_2main_8c">
-<area shape="rect" id="node2" href="elev_8h_source.html" title="elev.h" alt="" coords="155,379,213,405"/>
-<area shape="rect" id="node3" href="liftMovement_8h_source.html" title="liftMovement.h" alt="" coords="209,304,317,331"/>
-<area shape="rect" id="node5" href="FSM_8h_source.html" title="FSM.h" alt="" coords="295,80,356,107"/>
-<area shape="rect" id="node6" href="door_8h_source.html" title="door.h" alt="" coords="467,155,525,181"/>
-<area shape="rect" id="node9" href="order_8h_source.html" title="order.h" alt="" coords="190,229,253,256"/>
-<area shape="rect" id="node10" href="stop_8h_source.html" title="stop.h" alt="" coords="144,155,203,181"/>
+<area shape="rect" id="node2" href="elev_8h.html" title="elev module. " alt="" coords="130,379,187,405"/>
+<area shape="rect" id="node3" href="floor_8h.html" title="floor module, containing the floor enum. " alt="" coords="129,304,188,331"/>
+<area shape="rect" id="node5" href="FSM_8h.html" title="Finite state machine, switches between the 4 finite states IDLE, RUNNING, DOOR_OPEN, EMERGENCYSTOP. " alt="" coords="300,80,361,107"/>
+<area shape="rect" id="node6" href="door_8h.html" title="door module, handles door open functionality, ensures the door is opened for 3 seconds then closed ag..." alt="" coords="656,155,715,181"/>
+<area shape="rect" id="node9" href="order_8h.html" title="Order module, stores the orders in two lists, checks for new orders, adds, removes and manages the or..." alt="" coords="195,229,258,256"/>
+<area shape="rect" id="node10" href="emergencystop_8h.html" title="emergency stop module, makes sure lift stops immediately and all orders removed when the stop button ..." alt="" coords="269,155,392,181"/>
 </map>
 </div>
 </div>
@@ -120,7 +121,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The main file, it does what main files usually does. </p>
+<div class="textblock"><p>The main file, initializes elev, fsm and then runs the fsm. </p>
 
 <p>Definition in file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 </div></div><!-- contents -->

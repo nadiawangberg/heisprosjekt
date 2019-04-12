@@ -9,6 +9,10 @@
 // Number of floors
 #define N_FLOORS 4
 
+/**
+* @file
+* @brief elev module.
+*/
 
 
 /**
